@@ -21,34 +21,26 @@ include("connection.php");
     $sql = "SELECT * FROM movieTable";
     ?>
     <header></header>
-     <div id="home-section-0" class="trailers-section">
-        <h1 class="section-title">Explore new movies</h1>
-        
-        <div class="trailers-grid">
-            <div class="trailers-grid-item">
-                <img src="img/movie-thumb-1.jpg" alt="">
-                <div class="trailer-item-info">
-                   <h3>Screen 1</h3>
+     <div class="services-container">
+        <?php
+$count=1;
+            $sql1 = mysqli_query($con,"select * from screen");
+            while($row = mysqli_fetch_array($sql1)){
+
+                $msql = mysqli_query($con,"select * from movie where mid =".$row['movie']);
+                $mrow = mysqli_fetch_array($msql);
+
+                echo '<div class="service-item">
+                <div class="service-item-icon">
+                    <i class="fas fa-4x fa-one"></i>
                 </div>
-            </div>
+               <a href="movie.php?htype='.$row['htype'].'"> <h2>Screen '.$count.'</h2></a>
+            </div>';
+$count++;
+            }
+
+        ?>
         </div>
-        <div class="trailers-grid">
-            <div class="trailers-grid-item">
-                <img src="img/movie-thumb-1.jpg" alt="">
-                <div class="trailer-item-info">
-                   <h3>Screen 2</h3>
-                </div>
-            </div>
-        </div>
-        <div class="trailers-grid">
-            <div class="trailers-grid-item">
-                <img src="img/movie-thumb-1.jpg" alt="">
-                <div class="trailer-item-info">
-                   <h3>Screen 3</h3>
-                </div>
-            </div>
-        </div>
-    </div>
     <div id="home-section-1" class="movie-show-container">
         <h1>Currently Showing</h1>
         <h3>Book a movie now</h3>
