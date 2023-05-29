@@ -10,6 +10,12 @@ switch($_REQUEST['action'])
 		login();
 		break;
 
+	case "seat_process":
+		seat_process();
+		break;
+	case "seat_reserved":
+		seat_reserved();
+		break;
 
 	
 }
@@ -37,4 +43,37 @@ function login(){
 		echo "0";
 	}
 }
+
+function seat_process()
+{
+	global $con;
+
+	$seats = explode(',', $_POST['selectedSeats']);
+
+	$err = [];
+	/*foreach ($seats as $key => $value)
+	{*/
+		$query = mysqli_query($con,"INSERT INTO seats_booking (`seat_no`) VALUES('".$_POST['selectedSeats']."')");
+	    if ($query)
+	    {
+	        $err = mysqli_error($con);
+	    }
+	/*}*/
+	$arr = [];
+	if ($err === $arr)
+	{
+	    echo ('Successfully Inserted.');
+	}
+	else
+	{
+	    echo $err;
+	}
+}
+
+function seat_reserved(){
+	global $con;
+
+	
+}
+
 ?>
