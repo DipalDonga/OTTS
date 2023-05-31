@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php 
 
 include("connection.php");
@@ -8,6 +7,7 @@ if(isset($_SESSION['moviemin_id']))
     header('location:index.php');
 }
 ?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -57,12 +57,14 @@ if(isset($_SESSION['moviemin_id']))
             success: function (response) {
                 console.log(response);
                 if(response==1){
-                    toastr.success('Hie!', '!');
-                    
+                    toastr.success('Hie!', 'Online Theatre Ticket System!');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
                     window.location = "index.php";
                 }   
                 else{
-                    toastr.error('Opps! I Doub\'t The Credentials ! or SIGN UP', '!');
+                    toastr.error('Opps! I Doub\'t The Credentials ! or SIGN UP', 'Online Theatre Ticket System!');
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
