@@ -9,7 +9,9 @@ switch($_REQUEST['action'])
 	case "signin":
 		login();
 		break;
-
+	case "signout":
+		logout();
+		break;
 	case "seat_process":
 		seat_process();
 		break;
@@ -27,12 +29,14 @@ function login(){
 	$sTime = date("d-m-Y H:i:s");  
 
 	$query = mysqli_query($con,"select * from users where email ='".$_POST['eMail']."' and password='".$_POST['password']."'");
+
 	
 	//check if data null or not
 
 	if(mysqli_num_rows($query) > 0){
 		
 		$row = mysqli_fetch_assoc($query);
+
 	
 		$_SESSION['moviemin_id']=$row['id'];
 		$_SESSION['moviemin_name']=$row['name'];
@@ -42,6 +46,20 @@ function login(){
 	else{
 		echo "0";
 	}
+}
+function logout(){
+	global $web;
+
+	$id=$_SESSION['moviemin_id'];
+	if(isset($_SESSION['moviemin_name']))
+	{
+		session_unset(); 
+		session_destroy();
+		header('location:'.$web);
+	}
+	else
+		header('location:'.$web);
+
 }
 
 function seat_process()
