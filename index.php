@@ -15,12 +15,13 @@ include("connection.php");
     <title>ATSE Cinema</title>
     <link rel="icon" type="image/png" href="img/logo.png">
 </head>
-
+<?php  
+    include("includes/header.php");
+?>
 <body>
     <?php
     $sql = "SELECT * FROM movieTable";
     ?>
-    <header></header>
      <div class="services-container">
         <?php
 $count=1;
