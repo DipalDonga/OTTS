@@ -1,9 +1,8 @@
-<div class="navbar-brand">
-    <a href="index.php">
+  
+  <a href="index.php">
         <h1 class="navbar-heading">ATSE Cinema</h1>
-    </a>
-</div>
-<div class="navbar-container">
+    </a> 
+<div class="navbar-">
     <nav class="navbar">
         <ul class="navbar-menu">
             <li><a href="index.php">Home</a></li>
@@ -12,18 +11,21 @@
             <li><a href="#">Team</a></li>           
             <li><a href="contact-us.php">Contact</a></li>
             <li><?php 
- 
-                            if(!isset($_SESSION['moviemin_id'])){
+            global $web;
+                            if(isset($_SESSION['moviemin_id'])){
 
-                                $login = '<a href=http://localhost/OnlineTicketSystem/login.php>Login</a>';
-                            }else{
                                 $login = '<a href="#">'. $_SESSION['moviemin_name'].'</a>
 
                                     
                                     <li><a href="includes/allfunction.php?action=signout"><i class="fa fa-sign-out">Logout</i></a></li>';
+                            }else{
+                                $login = '<a href='.$web.'login.php>Login</a>';
                             }
                             echo $login;
+
+                            
                         ?></li>
         </ul>
     </nav>
 </div>
+ 
