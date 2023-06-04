@@ -59,7 +59,7 @@
                 <h1>Login</h1>
                 <div>
                     <input type="text" class="textbox" id="txt_uname" name="txt_uname" placeholder="Username" />
-                </div>
+                </div> 
                 <div>
                     <input type="password" class="textbox" id="txt_uname" name="txt_pwd" placeholder="Password" />
                 </div>
