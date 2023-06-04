@@ -44,6 +44,7 @@ if (isset($_POST['update'])) // when click on Update button
     } else {
         echo "error";
     }
+    
 }
 ?>
 
