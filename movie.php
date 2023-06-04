@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-
+ 
 include("connection.php");
 $htype = $_GET['htype'];
 ?>
