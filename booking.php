@@ -18,7 +18,7 @@ $sn = $row['mid'];
                         $sId = mysqli_query($con, $sQuery);
                         $srow = mysqli_fetch_array($sId);
 
-?>
+?> 
 
 <head>
     <meta charset="UTF-8">
