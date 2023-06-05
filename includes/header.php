@@ -1,7 +1,7 @@
   
   <a href="index.php">
         <h1 class="navbar-heading">ATSE Cinema</h1>
-    </a> 
+    </a>  
 <div class="navbar-">
     <nav class="navbar">
         <ul class="navbar-menu">
