@@ -2,7 +2,7 @@
 <?php 
 
 include("connection.php");
-
+ 
 if(isset($_SESSION['moviemin_id']))
 {
     header('location:index.php');
