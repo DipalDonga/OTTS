@@ -17,7 +17,7 @@ include("connection.php");
 </head>
 <?php  
     include("includes/header.php");
-?>
+?> 
 <body>
     <?php
     $sql = "SELECT * FROM movieTable";
