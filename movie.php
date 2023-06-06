@@ -18,7 +18,7 @@ $htype = $_GET['htype'];
 
 <body>
     <header></header>
-    
+     
     <div id="home-section-1" class="movie-show-container">
         <h3>Book a movie now</h3>
 
