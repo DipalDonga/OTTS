@@ -6,7 +6,7 @@ $id = $_GET['id'];
 if ((!$_GET['id'])) {
     echo "<script>alert('You are Not Suppose to come Here Directly');window.location.href='index.php';</script>";
 }  
-include "connection.php";
+include "connection.php"; 
 
 $movieQuery = "SELECT * FROM movie WHERE mid = $id";
 $movieImageById = mysqli_query($con, $movieQuery);
