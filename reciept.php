@@ -193,9 +193,8 @@ $db = mysqli_select_db($con, "cinema_db");
 					<table>
 						<tr>
 							<td>
-								ARVR Cinema<br>
-								393 , Kohat Enclave<br>
-								Delhi-110088
+								ATSE Cinema<br>
+								
 							</td>
 
 							<td>
