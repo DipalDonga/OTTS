@@ -8,7 +8,6 @@
             <li><a href="index.php">Home</a></li>
             <!-- <li><a href="TxnStatus.php" target="_blank">Status</a></li> -->
             <li><a href="contact-us.php">Contact</a></li>
-            <li><a href="booking-list.php">Booking</a></li>
             <li>
             <?php
                 global $web;
