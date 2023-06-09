@@ -2,15 +2,19 @@
 include "connection.php";
 session_start();
 
+if(!isset($_POST['sheets'])){
+    echo "<script>alert('Please select sheet');window.location.href='index.php';</script>";
+}
 // variables
 $fname = $_POST['fName'];
 $lname = $_POST['lName'];
-$email = $_POST['email'];
+$email = '';
 $mobile = $_POST['pNumber'];
 $theatre = $_POST['theatre'];
 $type = $_POST['type'];
 $date = $_POST['date'];
 $time = $_POST['hour'];
+$sheets = $_POST['sheets'];
 $movieid = $_POST['movie_id'];
 $order = "ARVR" . rand(10000, 99999999);
 $cust  = "CUST" . rand(1000, 999999);
@@ -26,28 +30,39 @@ if ((!$_POST['submit'])) {
 
 if (isset($_POST['submit'])) {
 
-    $qry = "INSERT INTO bookingtable(`movieID`, `bookingTheatre`, `bookingType`, `bookingDate`, `bookingTime`, `bookingFName`, `bookingLName`, `bookingPNumber`, `bookingEmail`,`amount`, `ORDERID`)VALUES ('$movieid','$theatre','$type','$date','$time','$fname','$lname','$mobile','$email','Not Paid','$order')";
+    $qry = "INSERT INTO bookingtable(`movieID`, `bookingTheatre`, `bookingType`, `bookingDate`, `bookingTime`, `bookingFName`, `bookingLName`, `bookingPNumber`, `bookingEmail`,`amount`, `ORDERID`)VALUES ('$movieid','$theatre','$type','$date','$time','$fname','$lname','$mobile','$email','Paid','$order')";
 
-    $result = mysqli_query($con, $qry);
+    // $result = mysqli_query($con, $qry);
+    if ($con->query($qry) === TRUE) {
+      $last_id = $con->insert_id;
+      $sheetsData = implode(',', $sheets);
+    //   print_r($sheetsData);
+      $qry2 = "INSERT INTO seats_booking(`bookingID`, `seat_no`) VALUES ('$last_id', '$sheetsData')";
+      if ($con->query($qry2) === FALSE) {
+        echo "<script>alert('Error: $con->error');window.location.href='index.php';</script>";
+      }
+    } else {
+      // echo "Error: " . $sql . "<br>" . $con->error;
+      echo "<script>alert('Error: $con->error');window.location.href='index.php';</script>";
+    }
 }
 
 ?>
 <!doctype html>
 <html lang="en">
-
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <title>Aman_Sharma</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <title>Booking</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
     <script src="_.js "></script>
 </head>
 
 <body>
+<header></header>
     <center>
         <br><br>
         <h1>Proceed for Payment </h1>
@@ -100,6 +115,7 @@ if (isset($_POST['submit'])) {
                         <td><label>txnAmount*</label></td>
                         <td>
                             <?php
+                            $ta = 0;
                             if ($theatre == "main-hall") {
                                 $ta = 200;
                             }
@@ -111,7 +127,6 @@ if (isset($_POST['submit'])) {
                             }
 
                             ?>
-
                             <input type="text" name="TXN_AMOUNT" value="<?php echo $ta; ?>" readonly>
                             <input type="hidden" name="CUST_ID" value="<?php echo $cust; ?>">
                             <input type="hidden" name="INDUSTRY_TYPE_ID" value="retail">
@@ -120,6 +135,13 @@ if (isset($_POST['submit'])) {
                         </td>
                     </tr>
 
+                    <tr>
+                        <td>7</td>
+                        <td><label>Booked Sheets</label></td>
+                        <td>
+                            <?php print_r($sheetsData); ?>
+                        </td>
+                    </tr>
 
                     <tr>
                         <td></td>
@@ -138,6 +160,15 @@ if (isset($_POST['submit'])) {
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <div style="width: 75%; height: 350px; margin: 15%;">
+        <div class="gmap_canvas"><iframe id="gmap_canvas" src="https://maps.google.com/maps?q=BUE&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+        </div>
+    </div>
+    <footer></footer>
+    <script src="scripts/jquery-3.3.1.min.js "></script>
+    <script src="scripts/owl.carousel.min.js "></script>
+    <script src="scripts/script.js "></script>
 </body>
 
 </html>
