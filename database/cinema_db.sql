@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 31, 2023 at 11:52 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Host: localhost
+-- Generation Time: Jun 08, 2023 at 08:01 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -97,10 +97,21 @@ CREATE TABLE `bookingtable` (
 --
 
 INSERT INTO `bookingtable` (`bookingID`, `movieID`, `bookingTheatre`, `bookingType`, `bookingDate`, `bookingTime`, `bookingFName`, `bookingLName`, `bookingPNumber`, `bookingEmail`, `amount`, `ORDERID`, `DATE-TIME`) VALUES
-(71, 6, 'private-hall', 'imax', '14-3', '15-00', 'xyz', 'abc', '000000000', '000@gmail.com', '5000.00', 'cash', '2020-12-14 12:20:31'),
-(72, 1, 'main-hall', '3d', '13-3', '09-00', 'Dipali', 'kaswala', '07570278270', 'dipaldonga28@gmail.com', 'Not Paid', 'ARVR88684513', '2023-05-24 02:37:32'),
-(73, 1, 'vip-hall', '2d', '14-3', '15-00', 'Dipali', 'kaswala', '07570278270', 'dipaldonga28@gmail.com', 'Not Paid', 'ARVR75182724', '2023-05-27 15:12:08'),
-(74, 1, '1', '2d', '13-3', '15-00', 'Dipali', 'kaswala', '+44757027827', 'dipaldonga28@gmail.com', 'Not Paid', 'ARVR11971139', '2023-05-30 15:06:31');
+(1, 1, '', '2d', '2023-06-13', '12', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR35281077', '2023-06-05 20:28:39'),
+(10, 1, '', '2d', '2023-06-13', '12', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR35281077', '2023-06-05 20:28:39'),
+(11, 1, '1', '3d', '2023-06-13', '12', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR80301027', '2023-06-05 23:37:08'),
+(13, 1, '1', '3d', '2023-06-12', '09', 'gaurav2', '222', '8866604285', '', 'Not Paid', 'ARVR59521449', '2023-06-05 23:40:10'),
+(14, 1, '1', '2d', '2023-06-12', '09', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR35421679', '2023-06-05 23:43:16'),
+(17, 1, '1', '3d', '2023-06-12', '09', 'gaurav', '10', '8866604285', '', 'Not Paid', 'ARVR44331308', '2023-06-06 21:53:44'),
+(24, 1, '1', '3d', '2023-06-12', '09', 'gaurav', 'b', '8866604285', '', 'Not Paid', 'ARVR93630984', '2023-06-06 22:12:01'),
+(25, 1, '1', '3d', '2023-06-12', '09', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR12278441', '2023-06-06 22:15:02'),
+(26, 1, '1', '3d', '2023-06-12', '09', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR73549381', '2023-06-07 21:41:38'),
+(27, 2, '2', '3d', '2023-06-12', '09', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR20881406', '2023-06-08 22:26:46'),
+(28, 2, '2', '3d', '2023-06-12', '09', 'gaurav', 'patel2', '8866604285', '', 'Not Paid', 'ARVR24054888', '2023-06-08 22:44:35'),
+(29, 3, '3', '3d', '2023-06-12', '09', 'gaurav', '3333', '8866604285', '', 'Not Paid', 'ARVR48589536', '2023-06-08 22:56:23'),
+(30, 3, '3', '3d', '2023-06-12', '09', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR59374620', '2023-06-08 22:56:47'),
+(31, 2, '2', '3d', '2023-06-12', '09', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR83562207', '2023-06-08 23:05:14'),
+(32, 2, '2', '3d', '2023-06-12', '09', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR97098211', '2023-06-08 23:05:40');
 
 -- --------------------------------------------------------
 
@@ -216,25 +227,30 @@ INSERT INTO `screen` (`sid`, `screenName`, `seats`, `movie`, `date`, `time`, `ht
 
 CREATE TABLE `seats_booking` (
   `id` int(11) NOT NULL,
-  `seat_no` varchar(10) NOT NULL
+  `bookingID` int(11) NOT NULL,
+  `seat_no` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `seats_booking`
 --
 
-INSERT INTO `seats_booking` (`id`, `seat_no`) VALUES
-(1, '23'),
-(2, '23'),
-(3, '28'),
-(4, '33'),
-(5, '38'),
-(6, '43'),
-(7, '48'),
-(8, ''),
-(9, '12,17,27'),
-(10, '153'),
-(11, '28,33,38');
+INSERT INTO `seats_booking` (`id`, `bookingID`, `seat_no`) VALUES
+(1, 1, 'A1,A2,A3'),
+(2, 10, 'B1,B2,B3'),
+(4, 11, 'A15,A16,B19,B20,B21'),
+(6, 13, 'A1,A2,A3,A9,A10,A11'),
+(7, 14, 'A8'),
+(10, 17, 'A4,A5,A6,A7'),
+(17, 24, 'B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16'),
+(18, 25, 'A15,A16'),
+(19, 26, 'C1,C21,D1,D21,E1,E21'),
+(20, 27, 'A1,A2,A3,A4,A12,A13,A14,A15'),
+(21, 28, 'B1,B17,B1,B17,D1,D19,E1,E19,F1,F21,F1,F21,F1,F20'),
+(22, 29, 'A1,B1,C1,D1,E1,F1,G1,H1'),
+(23, 30, 'A2,A3,A4,A5'),
+(24, 31, 'A5,A6,A7'),
+(25, 32, 'A8,A9');
 
 -- --------------------------------------------------------
 
@@ -341,7 +357,7 @@ ALTER TABLE `booking`
 -- AUTO_INCREMENT for table `bookingtable`
 --
 ALTER TABLE `bookingtable`
-  MODIFY `bookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `bookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `feedbacktable`
@@ -371,7 +387,7 @@ ALTER TABLE `screen`
 -- AUTO_INCREMENT for table `seats_booking`
 --
 ALTER TABLE `seats_booking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `users`
