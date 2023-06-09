@@ -116,13 +116,13 @@ if (isset($_POST['submit'])) {
                         <td>
                             <?php
                             $ta = 0;
-                            if ($theatre == "main-hall") {
+                            if ($theatre == "1") {
                                 $ta = 200;
                             }
-                            if ($theatre == "vip-hall") {
+                            if ($theatre == "2") {
                                 $ta = 500;
                             }
-                            if ($theatre == "private-hall") {
+                            if ($theatre == "3") {
                                 $ta = 900;
                             }
 
