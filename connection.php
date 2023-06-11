@@ -10,7 +10,7 @@ $password = ""; /* Password */
 $dbname = "cinema_db"; /* Database name */
 
 $con = mysqli_connect($host, $user, $password,$dbname);
-$web="http://localhost/OnlineTicketSystem/";
+$web="http://localhost/booking_DB/OnlineTicketSystem/";
 // Check connection
 if (!$con) {
   die("Connection failed: " . mysqli_connect_error());
