@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
-session_start();
-include("connection.php");
+    session_start();
+    include("connection.php");
 
 ?>
 <html lang="en">
@@ -17,30 +17,30 @@ include("connection.php");
 </head>
 <?php  
     include("includes/header.php");
-?> 
+?>
 <body>
     <?php
-    $sql = "SELECT * FROM movieTable";
+    $sql = "SELECT * FROM movie";
     ?>
-     
-    <div id="home-section-1" class="movie-show-container">
-        <h1>Currently Showing</h1>
+    
+    <div id="home-section-1" class="movie-show-container"><br><br><br>
         <h3>Book a movie now</h3>
 
         <div class="movies-container">
 
               <?php
 
-            $sql1 = mysqli_query($con,"select * from movie");
+            $sql1 = mysqli_query($con,"select * from movie ORDER BY htype");
              while($mrow = mysqli_fetch_array($sql1)){
 
 
                     
 
                         echo '<div class="movie-box">
-                            <img src="img/' . $mrow['image'] . '" alt=" " height="500" width="500">
+                            <img src="' . $mrow['image'] . '" alt=" " >
                             <div class="movie-info ">
                             <h3>' . $mrow['movieName'] . '</h3>
+                            <h3>Screen - ' . $mrow['htype'] . '</h3>
                             <a href="booking.php?id=' . $mrow['mid'] . '"><i class="fas fa-ticket-alt"></i> Book a seat</a>
                             </div>
                             </div>';
@@ -53,8 +53,9 @@ include("connection.php");
         </div>
     </div>
 
-    <div id="home-section-2" class="services-section">
-        <h1>How it works</h1>
+    
+   <div id="home-section-2" class="services-section">
+        <h1>Choose your Screen</h1>
         <h3>3 Simple steps to book your favourit movie!</h3>
 
         <div class="services-container">
@@ -80,8 +81,7 @@ include("connection.php");
             <div class="service-item"></div>
         </div>
     </div>
-   
-    <footer></footer>
+     
 
     <script src="scripts/jquery-3.3.1.min.js "></script>
     <script src="scripts/script.js "></script>
