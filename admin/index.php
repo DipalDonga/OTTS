@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin Panel</title>
     <style>
         /* Container */
         .container {
@@ -59,7 +59,7 @@
                 <h1>Login</h1>
                 <div>
                     <input type="text" class="textbox" id="txt_uname" name="txt_uname" placeholder="Username" />
-                </div> 
+                </div>
                 <div>
                     <input type="password" class="textbox" id="txt_uname" name="txt_pwd" placeholder="Password" />
                 </div>
@@ -83,7 +83,7 @@ if (isset($_POST['but_submit'])) {
 
     if ($uname != "" && $password != "") {
 
-        $sql_query = "select count(*) as cntUser from users where username='" . $uname . "' and password='" . $password . "'";
+        $sql_query = "select count(*) as cntUser from admin where name='" . $uname . "' and password='" . $password . "'";
         $result = mysqli_query($con, $sql_query);
         $row = mysqli_fetch_array($result);
 
