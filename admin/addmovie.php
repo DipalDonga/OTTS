@@ -27,13 +27,13 @@ if (isset($_POST['but_logout'])) {
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
- 
+
 <body>
     <?php
     $sql = "SELECT * FROM bookingTable";
     $bookingsNo = mysqli_num_rows(mysqli_query($con, $sql));
     $messagesNo = mysqli_num_rows(mysqli_query($con, "SELECT * FROM feedbackTable"));
-    $moviesNo = mysqli_num_rows(mysqli_query($con, "SELECT * FROM movieTable"));
+    $moviesNo = mysqli_num_rows(mysqli_query($con, "SELECT * FROM movie"));
     ?>
     
     <?php include('header.php'); ?>
@@ -51,25 +51,32 @@ if (isset($_POST['but_logout'])) {
                         <i class="fas fa-film" style="background-color: #4547cf"></i>
                     </div>
                     <form action="" method="POST">
-                        <input placeholder="Title" type="text" name="movieTitle" required>
+                        <input placeholder="Title" type="text" name="movieName" required>
                         <input placeholder="Genre" type="text" name="movieGenre" required>
                         <input placeholder="Duration" type="number" name="movieDuration" required>
                         <input placeholder="Release Date" type="date" name="movieRelDate" required>
                         <input placeholder="Director" type="text" name="movieDirector" required>
-                        <input placeholder="Actors" type="text" name="movieActors" required>
+                        <input placeholder="Actors" type="text" name="movieActors" required> 
+                        
                         <label>Price</label>
                         <input placeholder="Main Hall" type="text" name="mainhall" required><br />
                         <input placeholder="Vip-Hall" type="text" name="viphall" required><br />
                         <input placeholder="Private Hall" type="text" name="privatehall" required><br />
                         <br>
                         <label>Add Poster</label>
-                        <input type="file" name="movieImg" accept="image/*">
-                        <button type="submit" value="submit" name="submit" class="form-btn">Add Movie</button>
+                        <input type="file" name="image" accept="image/*">
+                        <select placeholder="Select Screen" name="htype" required>
+                            <option value="" disabled selected>Select Screen</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                        <button type="submit" value="submit" name="submit" class="form-btn" style="background-color: black">Add Movie</button>
                         <?php
                         if (isset($_POST['submit'])) {
                             $insert_query = "INSERT INTO 
-                            movieTable (  movieImg,
-                                            movieTitle,
+                            movie (  image,
+                                            movieName,
                                             movieGenre,
                                             movieDuration,
                                             movieRelDate,
@@ -77,9 +84,10 @@ if (isset($_POST['but_logout'])) {
                                             movieActors,
                                             mainhall,
                                             viphall,
-                                            privatehall)
-                            VALUES (        'img/" . $_POST['movieImg'] . "',
-                                            '" . $_POST["movieTitle"] . "',
+                                            privatehall,
+                                            htype)
+                            VALUES (        'img/" . $_POST['image'] . "',
+                                            '" . $_POST["movieName"] . "',
                                             '" . $_POST["movieGenre"] . "',
                                             '" . $_POST["movieDuration"] . "',
                                             '" . $_POST["movieRelDate"] . "',
@@ -87,13 +95,13 @@ if (isset($_POST['but_logout'])) {
                                             '" . $_POST["movieActors"] . "',
                                             '" . $_POST["mainhall"] . "',
                                             '" . $_POST["viphall"] . "',
-                                            '" . $_POST["privatehall"] . "')";
+                                            '" . $_POST["privatehall"] . "',
+                                            '" . $_POST["htype"] . "')";
                            $rs= mysqli_query($con, $insert_query);
-                           if ($rs) {
+                           if($rs > 0){
                             echo "<script>alert('Sussessfully Submitted');
-                                    setTimeout(function() {
-                                            location.reload();
-                                        }, 1000);
+                                    
+                                           
                                   </script>";
                         }
                         }
@@ -125,13 +133,13 @@ if (isset($_POST['but_logout'])) {
                             $dbname = "cinema_db"; /* Database name */
 
                             $con = mysqli_connect($host, $user, $password, $dbname);
-                            $select = "SELECT * FROM `movietable`";
+                            $select = "SELECT * FROM `movie`";
                             $run = mysqli_query($con, $select);
                             while ($row = mysqli_fetch_array($run)) {
-                                $ID = $row['movieID'];
-                                $title = $row['movieTitle'];
+                                $ID = $row['mid'];
+                                $title = $row['movieName'];
                                 $genere = $row['movieGenre'];
-                                $poster = $row['movieImg'];
+                                $poster = $row['image'];
                                 $releasedate = $row['movieRelDate'];
                                 $movieactor = $row['movieDirector'];
 
@@ -144,8 +152,8 @@ if (isset($_POST['but_logout'])) {
                                     <td><?php echo $movieImg; ?></td>
                                     <td><?php echo $releasedate; ?></td>
                                     <td><?php echo $movieactor; ?></td>
-                                    <!--<td><?php echo  "<a href='deletemovie.php?id=" . $row['movieID'] . "'>delete</a>"; ?></td>-->
-                                    <td><button value="Book Now!" type="submit" onclick="" type="button" class="btn btn-danger"><?php echo  "<a href='deletemovie.php?id=" . $row['movieID'] . "'>delete</a>"; ?></button></td>
+                                    <!--<td><?php echo  "<a href='deletemovie.php?id=" . $row['mid'] . "'>delete</a>"; ?></td>-->
+                                    <td><button value="Book Now!" type="submit" onclick="" type="button" class="btn btn-danger"><?php echo  "<a href='deletemovie.php?id=" . $row['mid'] . "'>delete</a>"; ?></button></td>
                                 </tr>
                             <?php }
                             ?>
