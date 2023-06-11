@@ -6,11 +6,6 @@ if (!isset($_SESSION['uname'])) {
     header('Location: index.php');
 }
 
-// logout
-if (isset($_POST['but_logout'])) {
-    session_destroy();
-    header('Location: index.php');
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,12 +25,13 @@ if (isset($_POST['but_logout'])) {
 
 <body>
     <?php
-    $sql = "SELECT * FROM bookingTable";
+    $sql = "SELECT * FROM bookingtable";
     $bookingsNo = mysqli_num_rows(mysqli_query($con, $sql));
-    $messagesNo = mysqli_num_rows(mysqli_query($con, "SELECT * FROM feedbackTable"));
+    $messagesNo = mysqli_num_rows(mysqli_query($con, "SELECT * FROM feedbacktable"));
     $moviesNo = mysqli_num_rows(mysqli_query($con, "SELECT * FROM movie"));
+    $userNo = mysqli_num_rows(mysqli_query($con, "SELECT * FROM users"));
     ?>
-    
+
     <?php include('header.php'); ?>
 
     <div class="admin-container">
@@ -43,124 +39,89 @@ if (isset($_POST['but_logout'])) {
         <?php include('sidebar.php'); ?>
         <div class="admin-section admin-section2">
             <div class="admin-section-column">
-
-
-                <div class="admin-section-panel admin-section-panel2">
-                    <div class="admin-panel-section-header">
-                        <h2>Movies</h2>
-                        <i class="fas fa-film" style="background-color: #4547cf"></i>
+                <div class="admin-section-panel admin-section-stats">
+                    <div class="admin-section-stats-panel">
+                        <i class="fa fa-ticket-alt" style="background-color: #cf4545"></i>
+                        <h2 style="color: #cf4545"><?php echo $bookingsNo ?></h2>
+                        <h3>Bookings</h3>
                     </div>
-                    <form action="" method="POST">
-                        <input placeholder="Title" type="text" name="movieName" required>
-                        <input placeholder="Genre" type="text" name="movieGenre" required>
-                        <input placeholder="Duration" type="number" name="movieDuration" required>
-                        <input placeholder="Release Date" type="date" name="movieRelDate" required>
-                        <input placeholder="Director" type="text" name="movieDirector" required>
-                        <input placeholder="Actors" type="text" name="movieActors" required> 
-                        
-                        <label>Price</label>
-                        <input placeholder="Main Hall" type="text" name="mainhall" required><br />
-                        <input placeholder="Vip-Hall" type="text" name="viphall" required><br />
-                        <input placeholder="Private Hall" type="text" name="privatehall" required><br />
-                        <br>
-                        <label>Add Poster</label>
-                        <input type="file" name="image" accept="image/*">
-                        <select placeholder="Select Screen" name="htype" required>
-                            <option value="" disabled selected>Select Screen</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                        <button type="submit" value="submit" name="submit" class="form-btn" style="background-color: black">Add Movie</button>
-                        <?php
-                        if (isset($_POST['submit'])) {
-                            $insert_query = "INSERT INTO 
-                            movie (  image,
-                                            movieName,
-                                            movieGenre,
-                                            movieDuration,
-                                            movieRelDate,
-                                            movieDirector,
-                                            movieActors,
-                                            mainhall,
-                                            viphall,
-                                            privatehall,
-                                            htype)
-                            VALUES (        'img/" . $_POST['image'] . "',
-                                            '" . $_POST["movieName"] . "',
-                                            '" . $_POST["movieGenre"] . "',
-                                            '" . $_POST["movieDuration"] . "',
-                                            '" . $_POST["movieRelDate"] . "',
-                                            '" . $_POST["movieDirector"] . "',
-                                            '" . $_POST["movieActors"] . "',
-                                            '" . $_POST["mainhall"] . "',
-                                            '" . $_POST["viphall"] . "',
-                                            '" . $_POST["privatehall"] . "',
-                                            '" . $_POST["htype"] . "')";
-                           $rs= mysqli_query($con, $insert_query);
-                           if($rs > 0){
-                            echo "<script>alert('Sussessfully Submitted');
-                                    
-                                           
-                                  </script>";
-                        }
-                        }
-                        ?>
-                    </form>
-                </div>
-                <div class="admin-section-panel admin-section-panel2">
-                    <div class="admin-panel-section-header">
-                        <h2>Recent Movies</h2>
+                    <div class="admin-section-stats-panel">
                         <i class="fas fa-film" style="background-color: #4547cf"></i>
+                        <h2 style="color: #4547cf"><?php echo $moviesNo ?></h2>
+                        <h3>Movies</h3>
                     </div>
-
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <tr>
-                            <th>MovieID</th>
-                            <th>MovieTitle</th>
-                            <th>Movie_Genre</th>
-                            <th>Movie_Poster</th>
-                            <th>Release_date</th>
-                            <th>Director</th>
-                            <th>More</th>
-                            
-                        </tr>
-                        <tbody>
-                            <?php
-                            $host = "localhost"; /* Host name */
-                            $user = "root"; /* User */
-                            $password = ""; /* Password */
-                            $dbname = "cinema_db"; /* Database name */
-
-                            $con = mysqli_connect($host, $user, $password, $dbname);
-                            $select = "SELECT * FROM `movie`";
-                            $run = mysqli_query($con, $select);
-                            while ($row = mysqli_fetch_array($run)) {
-                                $ID = $row['mid'];
-                                $title = $row['movieName'];
-                                $genere = $row['movieGenre'];
-                                $poster = $row['image'];
-                                $releasedate = $row['movieRelDate'];
-                                $movieactor = $row['movieDirector'];
-
-                                $movieImg = '<img src=../'.$poster.' width=100 height=100>';
-                            ?>
-                                <tr align="center">
-                                    <td><?php echo $ID; ?></td>
-                                    <td><?php echo $title; ?></td>
-                                    <td><?php echo $genere; ?></td>
-                                    <td><?php echo $movieImg; ?></td>
-                                    <td><?php echo $releasedate; ?></td>
-                                    <td><?php echo $movieactor; ?></td>
-                                    <!--<td><?php echo  "<a href='deletemovie.php?id=" . $row['mid'] . "'>delete</a>"; ?></td>-->
-                                    <td><button value="Book Now!" type="submit" onclick="" type="button" class="btn btn-danger"><?php echo  "<a href='deletemovie.php?id=" . $row['mid'] . "'>delete</a>"; ?></button></td>
-                                </tr>
-                            <?php }
-                            ?>
-                        </tbody>
-
-                    </table>
+                    <div class="admin-section-stats-panel">
+                        <i class="fas fa-users" style="background-color: #000000"></i>
+                        <!--<i class="fas fa-ticket-alt"></i>-->
+                        <h2 style="color: #bb3c95"><?php echo $userNo ?></h2>
+                        <h3>Users</h3>
+                    </div>
+                    <div class="admin-section-stats-panel" style="border: none">
+                        <i class="fas fa-envelope" style="background-color: #3cbb6c"></i>
+                        <h2 style="color: #3cbb6c"><?php echo $messagesNo ?></h2>
+                        <h3>Messages</h3>
+                    </div>
                 </div>
+                <div class="admin-section-panel admin-section-panel1">
+                    <div class="admin-panel-section-header">
+                        <h2>Recent Bookings</h2>
+                        <i class="fas fa-ticket-alt" style="background-color: #cf4545"></i>
+                    </div>
+                    <div class="admin-panel-section-content">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Movie ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Phone Number</th>
+                                <th>Email</th>
+                                <th>Date</th>
+                                <th>Theatre</th>
+                                <th>Type</th>
+                                <th>Order ID</th>
+                            </tr>
+                            <tbody>
+                                <?php
+
+                                $select = "SELECT * FROM `bookingtable`";
+                                $run = mysqli_query($con, $select);
+                                while ($row = mysqli_fetch_array($run)) {
+                                    $bookingid = $row['bookingID'];
+                                    $movieID = $row['movieID'];
+                                    $bookingFName = $row['bookingFName'];
+                                    $bookingLName = $row['bookingLName'];
+                                    $mobile = $row['bookingPNumber'];
+                                    $email = $row['bookingEmail'];
+                                    $date = $row['bookingDate'];
+                                    $theatre = $row['bookingTheatre'];
+                                    $type = $row['bookingType'];
+                                    $ORDERID = $row['ORDERID'];
+
+
+
+                                ?>
+                                    <tr align="center">
+                                        <td><?php echo $bookingid; ?></td>
+                                        <td><?php echo $movieID; ?></td>
+                                        <td><?php echo $bookingFName; ?></td>
+                                        <td><?php echo $bookingLName; ?></td>
+                                        <td><?php echo $mobile; ?></td>
+                                        <td><?php echo $email; ?></td>
+                                        <td><?php echo $date; ?></td>
+                                        <td><?php echo $theatre; ?></td>
+                                        <td><?php echo $type; ?></td>
+                                        <td><?php echo $ORDERID; ?></td>
+                                    </tr>
+
+                                <?php }
+                                ?>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+
             </div>
 
         </div>
