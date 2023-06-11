@@ -1,10 +1,6 @@
 <?php
 include("include/connect.php");
 
-if(!isset($_SESSION['mjwadmin_id']))
-{
-	header('location:index.php');
-}
 // $sql="select * from products order by addedon desc LIMIT 1";
 // $sqlquery=mysqli_query($link,$sql);
 // $record=mysqli_fetch_array($sqlquery);
