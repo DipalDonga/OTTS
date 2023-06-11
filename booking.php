@@ -1,164 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+
 $id = $_GET['id'];
-//conditions 
+//conditions
 if ((!$_GET['id'])) {
     echo "<script>alert('You are Not Suppose to come Here Directly');window.location.href='index.php';</script>";
-}  
-include "connection.php"; 
+}
+include "connection.php";
 
 $movieQuery = "SELECT * FROM movie WHERE mid = $id";
 $movieImageById = mysqli_query($con, $movieQuery);
 $row = mysqli_fetch_array($movieImageById);
+$sn = $row['mid'];
+$sQuery = "SELECT * FROM screen WHERE movie = $sn";
+$sId = mysqli_query($con, $sQuery);
+$srow = mysqli_fetch_array($sId);
 
-$sn = $row['mid']; 
-
-                        $sQuery = "SELECT * FROM screen WHERE movie = $sn";
-                        $sId = mysqli_query($con, $sQuery);
-                        $srow = mysqli_fetch_array($sId);
-
-?> 
-
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style/styles.css">
     <link rel="stylesheet" href="style/seatLayout.css">
-        <link rel="stylesheet" href="http://140.116.219.85/chair/seat/css/jquery.seat-charts.css">
+    <link rel="stylesheet" href="http://140.116.219.85/chair/seat/css/jquery.seat-charts.css">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <title>Book <?php echo $row['movieName']; ?> Now</title>
     <link rel="icon" type="image/png" href="img/logo.png">
     <script src="_.js "></script>
     <style>
-     body
-{
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-}
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
 
-#Username
-{
-  border:none;
-  border-bottom:1px solid;
-}
+        #Username {
+            border: none;
+            border-bottom: 1px solid;
+        }
 
-.screen
-{
-  width:100%;
-  height:20px;
-  background:#4388cc;
-  color:#fff;
-  line-height:20px;
-  font-size:15px;
-}
+        .screen {
+            width: 100%;
+            height: 20px;
+            background: #4388cc;
+            color: #fff;
+            line-height: 20px;
+            font-size: 15px;
+        }
 
-.smallBox::before
-{
-  content:".";
-  width:15px;
-  height:15px;
-  float:left;
-  margin-right:10px;
-}
-.greenBox::before
-{
-  content:"";
-  background:Green;
-}
-.redBox::before
-{
-  content:"";
-  background:Red;
-}
-.emptyBox::before
-{
-  content="";
-  box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
-    background-color:#ccc;
-}
+        .smallBox::before {
+            content: ".";
+            width: 15px;
+            height: 15px;
+            float: left;
+            margin-right: 10px;
+        }
 
-.seats
-{
-  border:1px solid red;background:yellow;
-} 
+        .greenBox::before {
+            content: "";
+            background: Green;
+        }
+
+        .redBox::before {
+            content: "";
+            background: Red;
+        }
+
+        .emptyBox::before {
+            content="";
+            box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
+            background-color: #ccc;
+        }
+
+        .seats {
+            border: 1px solid red;
+            background: yellow;
+        }
 
 
 
-.seatGap
-{
-  width:40px;
-}
+        .seatGap {
+            width: 40px;
+        }
 
-.seatVGap
-{
-  height:40px;
-}
+        .seatVGap {
+            height: 40px;
+        }
 
-table
-{
-  text-align:center;
-}
+        table {
+            text-align: center;
+        }
 
 
-.Displaytable
-{
-  text-align:center;
-}
-.Displaytable td, .Displaytable th {
-    border: 1px solid;
-    text-align: left;
-}
+        .Displaytable {
+            text-align: center;
+        }
 
-textarea
-{
-  border:none;
-  background:transparent;
-}
+        .Displaytable td,
+        .Displaytable th {
+            border: 1px solid;
+            text-align: left;
+        }
+
+        textarea {
+            border: none;
+            background: transparent;
+        }
 
 
 
-input[type=checkbox] {
-    width:0px;
-    margin-right:18px;
-}
+        input[type=checkbox] {
+            width: 0px;
+            margin-right: 18px;
+        }
 
-input[type=checkbox]:before {
-    content: "";
-    width: 15px;
-    height: 15px;
-    display: inline-block;
-    vertical-align:middle;
-    text-align: center;
-    box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
-    background-color:#ccc;
-}
+        input[type=checkbox]:before {
+            content: "";
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
+            background-color: #ccc;
+        }
 
-input[type=checkbox]:checked:before {
-    background-color:Green;
-    font-size: 15px;
-}
+        input[type=checkbox]:checked:before {
+            background-color: Green;
+            font-size: 15px;
+        }
 
-.A{
-     
-}
-</style>
-
+        .A {}
+    </style>
 </head>
-
-<body >
+<body>
     <div class="booking-panel">
         <div class="booking-panel-section booking-panel-section1">
             <h1>RESERVE YOUR TICKET</h1>
         </div>
-        <div class="booking-panel-section booking-panel-section2" onclick="window.history.go(-1); return false;">
+        <div class="booking-panel-section booking-panel-section2" onclick="window.location.href='index.php'; return false;">
             <i class="fas fa-2x fa-times"></i>
         </div>
         <div class="booking-panel-section booking-panel-section3">
             <div class="movie-box">
                 <?php
-                echo '<img src="img/' .$row['image'] . '" alt="">';
+                echo '<img src="' . $row['image'] . '" alt="">';
                 ?>
             </div>
         </div>
@@ -168,509 +155,1894 @@ input[type=checkbox]:checked:before {
                 <table>
                     <tr>
                         <td>Screen</td>
-                        <td><?php echo $srow['screenName']; ?></td>
-                    </tr> 
-                    <tr>
-                        <td>Cast</td>
-                        <td><?php echo $row['movieCast']; ?></td>
+                        <td><?php echo $row['htype']; ?></td>
                     </tr>
                     <tr>
-                        <td>Facts</td>
-                        <td><?php echo $row['facts']; ?></td>
+                        <td>Director</td>
+                        <td><?php echo $row['movieDirector']; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Actors</td>
+                        <td><?php echo $row['movieActors']; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Genre</td>
+                        <td><?php echo $row['movieGenre']; ?></td>
                     </tr>
                     <tr>
                         <td>RELEASE DATE</td>
-                        <td><?php echo $row['description']; ?></td>
+                        <td><?php echo $row['movieRelDate']; ?></td>
                     </tr>
                     <tr>
-                        <td>Rating</td>
-                        <td><?php echo $row['rating']; ?></td>
+                        <td>Duration</td>
+                        <td><?php echo $row['movieDuration']; ?></td>
                     </tr>
                 </table>
             </div>
-            <div class="booking-form-container" background-color:white;>
-               <form action="verify.php" method="POST">
-
-
-                    <select name="theatre" required>
-                        <option value="" disabled selected>THEATRE</option>
-                        <option value="<?php echo $srow['screenName'];?>" disabled selected>    <?php echo $srow['screenName'];?></option>
-                       
+            <div class="booking-form-container">
+                <!-- <form action="verify.php" method="POST"> -->
+                <form action="" method="GET">
+                    <select name="id" required>
+                        <option value="">THEATRE</option>
+                        <option value="<?php echo $row['htype']; ?>" selected><?php echo $row['htype']; ?></option>
                     </select>
 
                     <select name="type" required>
-                        <option value="" disabled selected>TYPE</option>
-                        <option value="3d">3D</option>
-                        <option value="2d">2D</option>
-                        <option value="imax">IMAX</option>
-                        <option value="7d">7D</option>
+                        <option value="">TYPE</option>
+                        <option value="3d" <?php if(isset($_GET['type'])) if($_GET['type'] == '3d') echo "selected"; ?>>3D</option>
+                        <option value="2d" <?php if(isset($_GET['type'])) if($_GET['type'] == '2d') echo "selected"; ?>>2D</option>
+                        <option value="imax" <?php if(isset($_GET['type'])) if($_GET['type'] == 'imax') echo "selected"; ?>>IMAX</option>
+                        <option value="7d" <?php if(isset($_GET['type'])) if($_GET['type'] == '7d') echo "selected"; ?>>7D</option>
                     </select>
 
                     <select name="date" required>
-                        <option value="" disabled selected>DATE</option>
-                        <option value="12-3">March 12,2019</option>
-                        <option value="13-3">March 13,2019</option>
-                        <option value="14-3">March 14,2019</option>
-                        <option value="15-3">March 15,2019</option>
-                        <option value="16-3">March 16,2019</option>
+                        <option value="">DATE</option>
+                        <option value="2023-06-12" <?php if(isset($_GET['date'])) if($_GET['date'] == '2023-06-12') echo "selected"; ?>>Jun 12,2023</option>
+                        <option value="2023-06-13" <?php if(isset($_GET['date'])) if($_GET['date'] == '2023-06-13') echo "selected"; ?>>Jun 13,2023</option>
+                        <option value="2023-06-14" <?php if(isset($_GET['date'])) if($_GET['date'] == '2023-06-14') echo "selected"; ?>>Jun 14,2023</option>
+                        <option value="2023-06-15" <?php if(isset($_GET['date'])) if($_GET['date'] == '2023-06-15') echo "selected"; ?>>Jun 15,2023</option>
+                        <option value="2023-06-16" <?php if(isset($_GET['date'])) if($_GET['date'] == '2023-06-16') echo "selected"; ?>>Jun 16,2023</option>
                     </select>
 
                     <select name="hour" required>
-                        <option value="" disabled selected>TIME</option>
-                        <option value="09-00">09:00 AM</option>
-                        <option value="12-00">12:00 AM</option>
-                        <option value="15-00">03:00 PM</option>
-                        <option value="18-00">06:00 PM</option>
-                        <option value="21-00">09:00 PM</option>
-                        <option value="24-00">12:00 PM</option>
+                        <option value="">TIME</option>
+                        <option value="09" <?php if(isset($_GET['hour'])) if($_GET['hour'] == '09') echo "selected"; ?>>09:00 AM</option>
+                        <option value="12" <?php if(isset($_GET['hour'])) if($_GET['hour'] == '12') echo "selected"; ?>>12:00 AM</option>
+                        <option value="15" <?php if(isset($_GET['hour'])) if($_GET['hour'] == '15') echo "selected"; ?>>03:00 PM</option>
+                        <option value="18" <?php if(isset($_GET['hour'])) if($_GET['hour'] == '18') echo "selected"; ?>>06:00 PM</option>
+                        <option value="21" <?php if(isset($_GET['hour'])) if($_GET['hour'] == '21') echo "selected"; ?>>09:00 PM</option>
+                        <option value="00" <?php if(isset($_GET['hour'])) if($_GET['hour'] == '00') echo "selected"; ?>>12:00 PM</option>
                     </select>
+                    <button type="submit" value="search" name="submit" class="form-btn">Search</button>
+                </form>
+                <br />
 
-                    <input placeholder="First Name" type="text" name="fName" required>
-
-                    <input placeholder="Last Name" type="text" name="lName">
-
-                    <input placeholder="Phone Number" type="text" name="pNumber" required>
+                <?php
+                    if ( isset($row['htype']) && isset($_GET['type']) && isset($_GET['date']) && isset($_GET['hour'])) {
+                        ?>
+                <form action="verify.php" method="POST" id="BookTicket">
+                    <input placeholder="First Name" type="text" name="fName" class="input" required>
+                    <input placeholder="Last Name" type="text" name="lName" class="input">
+                    <input placeholder="Phone Number" type="text" name="pNumber" class="input" required>
                     <!-- <input placeholder="email" type="email" name="email" required> -->
                     <input type="hidden" name="movie_id" value="<?php echo $id; ?>">
-                    <?php 
+                    <input type="hidden" name="theatre" value="<?php echo $id; ?>">
+                    <input type="hidden" name="type" value="<?php echo $_GET['type']; ?>">
+                    <input type="hidden" name="date" value="<?php echo $_GET['date']; ?>">
+                    <input type="hidden" name="hour" value="<?php echo $_GET['hour']; ?>">
+                    <br />
+                    <br />
+                    <?php                        
+                        $type = $_GET['type'];
+                        $date = $_GET['date'];
+                        $hour = $_GET['hour'];
 
-                    if ($row['htype']=='1'){
-                    ?>
-                    
-  
-
-  
-
-<div class="seatStructure">
-<center>
-  
-<table id="seatsBlock">
- <p id="notification"></p>
-
-  
-  
-<tr>
-    <td>A</td>
-    <td class="A"><input type="checkbox" class="seats" value="A1"></td>
-    <td class="A"><input type="checkbox" class="seats" value="A2"></td>
-    <td class="A"><input type="checkbox" class="seats" value="A3"></td>
-    <td class="A"><input type="checkbox" class="seats" value="A4"></td>
-    <td class="A"><input type="checkbox" class="seats" value="A5"></td>
-    <td class="seatGap"></td>
-    <td><input type="checkbox" class="seats" value="A6"></td>
-    <td><input type="checkbox" class="seats" value="A7"></td>
-    <td><input type="checkbox" class="seats" value="A8"></td>
-    <td><input type="checkbox" class="seats" value="A9"></td>
-    <td><input type="checkbox" class="seats" value="A10"></td>
-    <td><input type="checkbox" class="seats" value="A11"></td>
-    <td><input type="checkbox" class="seats" value="A12"></td>
-    <td>A</td>
-  </tr>
-  
-  <tr>
-    <td>B</td>
-    <td><input type="checkbox" class="seats" value="B1"></td>
-    <td><input type="checkbox" class="seats" value="B2"></td>
-    <td><input type="checkbox" class="seats" value="B3"></td>
-    <td><input type="checkbox" class="seats" value="B4"></td>
-    <td><input type="checkbox" class="seats" value="B5"></td>
-    <td></td>
-    <td><input type="checkbox" class="seats" value="B6"></td>
-    <td><input type="checkbox" class="seats" value="B7"></td>
-    <td><input type="checkbox" class="seats" value="B8"></td>
-    <td><input type="checkbox" class="seats" value="B9"></td>
-    <td><input type="checkbox" class="seats" value="B10"></td>
-    <td><input type="checkbox" class="seats" value="B11"></td>
-    <td><input type="checkbox" class="seats" value="B12"></td>
-    <td>B</td>
-  </tr>
-  
-  <tr>
-    <td>C</td>
-    <td><input type="checkbox" class="seats" value="C1"></td>
-    <td><input type="checkbox" class="seats" value="C2"></td>
-    <td><input type="checkbox" class="seats" value="C3"></td>
-    <td><input type="checkbox" class="seats" value="C4"></td>
-    <td><input type="checkbox" class="seats" value="C5"></td>
-    <td></td>
-    <td><input type="checkbox" class="seats" value="C6"></td>
-    <td><input type="checkbox" class="seats" value="C7"></td>
-    <td><input type="checkbox" class="seats" value="C8"></td>
-    <td><input type="checkbox" class="seats" value="C9"></td>
-    <td><input type="checkbox" class="seats" value="C10"></td>
-    <td><input type="checkbox" class="seats" value="C11"></td>
-    <td><input type="checkbox" class="seats" value="C12"></td>
-</tr>
-  
-<tr>
-    <td>D</td>
-    <td><input type="checkbox" class="seats" value="D1"></td>
-    <td><input type="checkbox" class="seats" value="D2"></td>
-    <td><input type="checkbox" class="seats" value="D3"></td>
-    <td><input type="checkbox" class="seats" value="D4"></td>
-    <td><input type="checkbox" class="seats" value="D5"></td>
-    <td></td>
-    <td><input type="checkbox" class="seats" value="D6"></td>
-    <td><input type="checkbox" class="seats" value="D7"></td>
-    <td><input type="checkbox" class="seats" value="D8"></td>
-    <td><input type="checkbox" class="seats" value="D9"></td>
-    <td><input type="checkbox" class="seats" value="D10"></td>
-    <td><input type="checkbox" class="seats" value="D11"></td>
-    <td><input type="checkbox" class="seats" value="D12"></td>
-</tr>
-  
-<tr>
-    <td>E</td>
-    <td><input type="checkbox" class="seats" value="E1"></td>
-    <td><input type="checkbox" class="seats" value="E2"></td>
-    <td><input type="checkbox" class="seats" value="E3"></td>
-    <td><input type="checkbox" class="seats" value="E4"></td>
-    <td><input type="checkbox" class="seats" value="E5"></td>
-    <td></td>
-    <td><input type="checkbox" class="seats" value="E6"></td>
-    <td><input type="checkbox" class="seats" value="E7"></td>
-    <td><input type="checkbox" class="seats" value="E8"></td>
-    <td><input type="checkbox" class="seats" value="E9"></td>
-    <td><input type="checkbox" class="seats" value="E10"></td>
-    <td><input type="checkbox" class="seats" value="E11"></td>
-    <td><input type="checkbox" class="seats" value="E12"></td>
-</tr>
-  
-<tr class="seatVGap"></tr>
-  
-<tr>
-    <td>F</td>
-    <td><input type="checkbox" class="seats" value="F1"></td>
-    <td><input type="checkbox" class="seats" value="F2"></td>
-    <td><input type="checkbox" class="seats" value="F3"></td>
-    <td><input type="checkbox" class="seats" value="F4"></td>
-    <td><input type="checkbox" class="seats" value="F5"></td>
-    <td></td>
-    <td><input type="checkbox" class="seats" value="F6"></td>
-    <td><input type="checkbox" class="seats" value="F7"></td>
-    <td><input type="checkbox" class="seats" value="F8"></td>
-    <td><input type="checkbox" class="seats" value="F9"></td>
-    <td><input type="checkbox" class="seats" value="F10"></td>
-    <td><input type="checkbox" class="seats" value="F11"></td>
-    <td><input type="checkbox" class="seats" value="F12"></td>
-</tr>
-  
-<tr>
-    <td>G</td>
-    <td><input type="checkbox" class="seats" value="G1"></td>
-    <td><input type="checkbox" class="seats" value="G2"></td>
-    <td><input type="checkbox" class="seats" value="G3"></td>
-    <td><input type="checkbox" class="seats" value="G4"></td>
-    <td><input type="checkbox" class="seats" value="G5"></td>
-    <td></td>
-    <td><input type="checkbox" class="seats" value="G6"></td>
-    <td><input type="checkbox" class="seats" value="G7"></td>
-    <td><input type="checkbox" class="seats" value="G8"></td>
-    <td><input type="checkbox" class="seats" value="G9"></td>
-    <td><input type="checkbox" class="seats" value="G10"></td>
-    <td><input type="checkbox" class="seats" value="G11"></td>
-    <td><input type="checkbox" class="seats" value="G12"></td>
-</tr>
-  
-<tr>
-    <td>H</td>
-    <td><input type="checkbox" class="seats" value="H1"></td>
-    <td><input type="checkbox" class="seats" value="H2"></td>
-    <td><input type="checkbox" class="seats" value="H3"></td>
-    <td><input type="checkbox" class="seats" value="H4"></td>
-    <td><input type="checkbox" class="seats" value="H5"></td>
-    <td></td>
-    <td><input type="checkbox" class="seats" value="H6"></td>
-    <td><input type="checkbox" class="seats" value="H7"></td>
-    <td><input type="checkbox" class="seats" value="H8"></td>
-    <td><input type="checkbox" class="seats" value="H9"></td>
-    <td><input type="checkbox" class="seats" value="H10"></td>
-    <td><input type="checkbox" class="seats" value="H11"></td>
-    <td><input type="checkbox" class="seats" value="H12"></td>
-</tr>
-  
-<tr>
-    <td>I</td>
-    <td><input type="checkbox" class="seats" value="I1"></td>
-    <td><input type="checkbox" class="seats" value="I2"></td>
-    <td><input type="checkbox" class="seats" value="I3"></td>
-    <td><input type="checkbox" class="seats" value="I4"></td>
-    <td><input type="checkbox" class="seats" value="I5"></td>
-    <td></td>
-    <td><input type="checkbox" class="seats" value="I6"></td>
-    <td><input type="checkbox" class="seats" value="I7"></td>
-    <td><input type="checkbox" class="seats" value="I8"></td>
-    <td><input type="checkbox" class="seats" value="I9"></td>
-    <td><input type="checkbox" class="seats" value="I10"></td>
-    <td><input type="checkbox" class="seats" value="I11"></td>
-    <td><input type="checkbox" class="seats" value="I12"></td>
-</tr>
-  
-<tr>
-    <td>J</td>
-    <td><input type="checkbox" class="seats" value="J1"></td>
-    <td><input type="checkbox" class="seats" value="J2"></td>
-    <td><input type="checkbox" class="seats" value="J3"></td>
-    <td><input type="checkbox" class="seats" value="J4"></td>
-    <td><input type="checkbox" class="seats" value="J5"></td>
-    <td></td>
-    <td><input type="checkbox" class="seats" value="J6"></td>
-    <td><input type="checkbox" class="seats" value="J7"></td>
-    <td><input type="checkbox" class="seats" value="J8"></td>
-    <td><input type="checkbox" class="seats" value="J9"></td>
-    <td><input type="checkbox" class="seats" value="J10"></td>
-    <td><input type="checkbox" class="seats" value="J11"></td>
-    <td><input type="checkbox" class="seats" value="J12"></td>
-</tr>
-  
-  
-</table>
-  
-</center>
-</div>
-      
-
+                        $getSheetQ = "SELECT seats_booking.seat_no FROM seats_booking
+                        INNER JOIN bookingtable ON seats_booking.bookingID = bookingtable.bookingID 
+                        where bookingtable.movieID = $id AND bookingtable.bookingDate = '$date' AND bookingtable.bookingTime = '$hour'";
+                        $getSheetQr = mysqli_query($con, $getSheetQ);
+                        $sheetsBooed = [];
+                        while ($rowData = $getSheetQr->fetch_assoc()) {
+                            $sheet = explode(',', $rowData['seat_no']);
+                            array_push($sheetsBooed, ...$sheet);
+                        }
  
-<?php } ?>
- <?php 
-
-                    if ($row['htype']=='2'){
+                    if ($row['htype'] == '1' && isset($_GET['type']) && isset($_GET['date']) && isset($_GET['hour'])) {
                     ?>
+                        <div class="seatStructure" style="width: 100%;">
+                            <center>
+                                <p>Screen This Side</p>
+                                <table id="seatsBlock">
+                                    <p id="notification"></p>
+                                    <!-- A -->
+                                    <tr>
+                                        <td></td>
+                                        <!-- 1 -->
+                                        <td>A</td>
+                                        <!-- 2 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-A" name="sheets[]" value="A1" <?php 
+                                                if(in_array('A1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 3 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A2" <?php 
+                                                if(in_array('A2', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 4 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A3" <?php 
+                                                if(in_array('A3', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 5 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A4" <?php 
+                                                if(in_array('A4', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 6 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A5" <?php 
+                                                if(in_array('A5', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 7 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A6" <?php 
+                                                if(in_array('A6', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 8 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A7" <?php 
+                                                if(in_array('A7', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 9 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A8" <?php 
+                                                if(in_array('A8', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 10 -->
+                                        <td></td>
+                                        <td></td>
+                                        <!-- 11 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A9" <?php 
+                                                if(in_array('A9', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 12 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A10" <?php 
+                                                if(in_array('A10', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 13 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A11" <?php 
+                                                if(in_array('A11', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 14 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A12" <?php 
+                                                if(in_array('A12', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 15 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A13" <?php 
+                                                if(in_array('A13', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 16 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A14" <?php 
+                                                if(in_array('A14', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 17 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A15" <?php 
+                                                if(in_array('A15', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 18 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A16" <?php 
+                                                if(in_array('A16', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 19 -->
+                                        <td>A</td>
+                                        <!-- 20 -->
+                                        <td></td>
+                                        <!-- 21 -->
+                                    </tr>
+                                    <!-- B -->
+                                    <tr>
+                                        <td>B</td>
+                                        <!-- 1 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]" value="B1"  <?php 
+                                                if(in_array('B1', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 2 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B2"  <?php 
+                                                if(in_array('B2', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 3 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B3"  <?php 
+                                                if(in_array('B3', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 4 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B4"  <?php 
+                                                if(in_array('B4', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 5 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B5"  <?php 
+                                                if(in_array('B5', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 6 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B6"  <?php 
+                                                if(in_array('B6', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 7 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B7"  <?php 
+                                                if(in_array('B7', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 8 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B8"  <?php 
+                                                if(in_array('B8', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 9 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B9"  <?php 
+                                                if(in_array('B9', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 10 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B10"  <?php 
+                                                if(in_array('B10', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 11 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B11"  <?php 
+                                                if(in_array('B11', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 12 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B12"  <?php 
+                                                if(in_array('B12', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 13 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B13"  <?php 
+                                                if(in_array('B13', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 14 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B14"  <?php 
+                                                if(in_array('B14', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 15 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B15"  <?php 
+                                                if(in_array('B15', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 16 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B16"  <?php 
+                                                if(in_array('B16', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 17 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B17"  <?php 
+                                                if(in_array('B17', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 18 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B18"  <?php 
+                                                if(in_array('B18', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 19 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B19"  <?php 
+                                                if(in_array('B19', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 20 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B20"  <?php 
+                                                if(in_array('B20', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 21 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]"  value="B21"  <?php 
+                                                if(in_array('B21', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 22 -->
+                                        <td>B</td>
+                                        <!-- 23 -->
+                                    </tr>
+                                    <!-- C -->
+                                    <tr>
+                                        <td>C</td>
+                                        <!-- 1 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-C" name="sheets[]" value="C1" <?php 
+                                                if(in_array('C1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 2 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C2"> <?php 
+                                                if(in_array('">', $sheetsBooed)) echo "checked disabled";
+                                            ?></td>
+                                        <!-- 3 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C3"> <?php 
+                                                if(in_array('">', $sheetsBooed)) echo "checked disabled";
+                                            ?></td>
+                                        <!-- 4 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C4"> <?php 
+                                                if(in_array('">', $sheetsBooed)) echo "checked disabled";
+                                            ?></td>
+                                        <!-- 5 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C5"> <?php 
+                                                if(in_array('">', $sheetsBooed)) echo "checked disabled";
+                                            ?></td>
+                                        <!-- 6 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C6"> <?php 
+                                                if(in_array('">', $sheetsBooed)) echo "checked disabled";
+                                            ?></td>
+                                        <!-- 7 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C7"> <?php 
+                                                if(in_array('">', $sheetsBooed)) echo "checked disabled";
+                                            ?></td>
+                                        <!-- 8 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C8"> <?php 
+                                                if(in_array('">', $sheetsBooed)) echo "checked disabled";
+                                            ?></td>
+                                        <!-- 9 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C9"> <?php 
+                                                if(in_array('">', $sheetsBooed)) echo "checked disabled";
+                                            ?></td>
+                                        <!-- 10 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C10" <?php 
+                                                if(in_array('C10', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 11 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C11" <?php 
+                                                if(in_array('C11', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 12 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C12" <?php 
+                                                if(in_array('C12', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 13 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C13" <?php 
+                                                if(in_array('C13', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 14 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C14" <?php 
+                                                if(in_array('C14', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 15 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C15" <?php 
+                                                if(in_array('C15', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 16 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C16" <?php 
+                                                if(in_array('C16', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 17 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C17" <?php 
+                                                if(in_array('C17', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 18 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C18" <?php 
+                                                if(in_array('C18', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 19 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C19" <?php 
+                                                if(in_array('C19', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 20 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C20" <?php 
+                                                if(in_array('C20', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 21 -->
+                                        <td><input type="checkbox" class="seats seat-C" name="sheets[]" value="C21" <?php 
+                                                if(in_array('C21', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 22 -->
+                                        <td>C</td>
+                                        <!-- 23 -->
+                                    </tr>
+                                    <!-- D -->
+                                    <tr>
+                                        <td>D</td>
+                                        <!-- 1 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-D" name="sheets[]" value="D1" <?php 
+                                                if(in_array('D1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 2 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D2" <?php 
+                                                if(in_array('D2', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 3 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D3" <?php 
+                                                if(in_array('D3', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 4 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D4" <?php 
+                                                if(in_array('D4', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 5 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D5" <?php 
+                                                if(in_array('D5', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 6 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D6" <?php 
+                                                if(in_array('D6', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 7 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D7" <?php 
+                                                if(in_array('D7', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 8 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D8" <?php 
+                                                if(in_array('D8', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 9 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D9" <?php 
+                                                if(in_array('D9', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 10 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D10" <?php 
+                                                if(in_array('D10', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 11 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D11" <?php 
+                                                if(in_array('D11', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 12 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D12" <?php 
+                                                if(in_array('D12', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 13 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D13" <?php 
+                                                if(in_array('D13', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 14 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D14" <?php 
+                                                if(in_array('D14', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 15 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D15" <?php 
+                                                if(in_array('D15', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 16 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D16" <?php 
+                                                if(in_array('D16', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 17 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D17" <?php 
+                                                if(in_array('D17', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 18 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D18" <?php 
+                                                if(in_array('D18', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 19 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D19" <?php 
+                                                if(in_array('D19', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 20 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D20" <?php 
+                                                if(in_array('D20', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 21 -->
+                                        <td><input type="checkbox" class="seats seat-D" name="sheets[]" value="D21" <?php 
+                                                if(in_array('D21', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 22 -->
+                                        <td>D</td>
+                                        <!-- 23 -->
+                                    </tr>
+                                    <!-- E -->
+                                    <tr>
+                                        <td>E</td>
+                                        <!-- 1 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E1" <?php 
+                                                if(in_array('E1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 2 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E2" <?php 
+                                                if(in_array('E2', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 3 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E3" <?php 
+                                                if(in_array('E3', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 4 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E4" <?php 
+                                                if(in_array('E4', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 5 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E5" <?php 
+                                                if(in_array('E5', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 6 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E6" <?php 
+                                                if(in_array('E6', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 7 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E7" <?php 
+                                                if(in_array('E7', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 8 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E8" <?php 
+                                                if(in_array('E8', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 9 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E9" <?php 
+                                                if(in_array('E9', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 10 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E10" <?php 
+                                                if(in_array('E10', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 11 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E11" <?php 
+                                                if(in_array('E11', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 12 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E12" <?php 
+                                                if(in_array('E12', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 13 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E13" <?php 
+                                                if(in_array('E13', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 14 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E14" <?php 
+                                                if(in_array('E14', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 15 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E15" <?php 
+                                                if(in_array('E15', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 16 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E16" <?php 
+                                                if(in_array('E16', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 17 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E17" <?php 
+                                                if(in_array('E17', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 18 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E18" <?php 
+                                                if(in_array('E18', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 19 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E19" <?php 
+                                                if(in_array('E19', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 20 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E20" <?php 
+                                                if(in_array('E20', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 21 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E21" <?php 
+                                                if(in_array('E21', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 22 -->
+                                        <td>E</td>
+                                        <!-- 23 -->
+                                    </tr>
+                                    <!-- F -->
+                                    <tr>
+                                        <td>F</td>
+                                        <!-- 1 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F1" <?php 
+                                                if(in_array('F1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 2 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F2" <?php 
+                                                if(in_array('F2', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 3 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F3" <?php 
+                                                if(in_array('F3', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 4 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F4" <?php 
+                                                if(in_array('F4', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 5 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F5" <?php 
+                                                if(in_array('F5', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 6 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F6" <?php 
+                                                if(in_array('F6', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 7 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F7" <?php 
+                                                if(in_array('F7', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 8 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F8" <?php 
+                                                if(in_array('F8', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 9 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F9" <?php 
+                                                if(in_array('F9', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 10 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F10" <?php 
+                                                if(in_array('F10', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 11 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F11" <?php 
+                                                if(in_array('F11', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 12 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F12" <?php 
+                                                if(in_array('F12', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 13 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F13" <?php 
+                                                if(in_array('F13', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 14 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F14" <?php 
+                                                if(in_array('F14', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 15 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F15" <?php 
+                                                if(in_array('F15', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 16 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F16" <?php 
+                                                if(in_array('F16', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 17 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F17" <?php 
+                                                if(in_array('F17', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 18 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F18" <?php 
+                                                if(in_array('F18', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 19 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F19" <?php 
+                                                if(in_array('F19', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 20 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F20" <?php 
+                                                if(in_array('F20', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 21 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F21" <?php 
+                                                if(in_array('F21', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 22 -->
+                                        <td>F</td>
+                                        <!-- 23 -->
+                                    </tr>
+                                    <!-- G -->
+                                    <tr>
+                                        <td>G</td>
+                                        <!-- 1 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G1" <?php 
+                                                if(in_array('G1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 2 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G2" <?php 
+                                                if(in_array('G2', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 3 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G3" <?php 
+                                                if(in_array('G3', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 4 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G4" <?php 
+                                                if(in_array('G4', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 5 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G5" <?php 
+                                                if(in_array('G5', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 6 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G6" <?php 
+                                                if(in_array('G6', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 7 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G7" <?php 
+                                                if(in_array('G7', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 8 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G8" <?php 
+                                                if(in_array('G8', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 9 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G9" <?php 
+                                                if(in_array('G9', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 10 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G10" <?php 
+                                                if(in_array('G10', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 11 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G11" <?php 
+                                                if(in_array('G11', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 12 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G12" <?php 
+                                                if(in_array('G12', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 13 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G13" <?php 
+                                                if(in_array('G13', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 14 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G14" <?php 
+                                                if(in_array('G14', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 15 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G15" <?php 
+                                                if(in_array('G15', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 16 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G16" <?php 
+                                                if(in_array('G16', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 17 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G17" <?php 
+                                                if(in_array('G17', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 18 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G18" <?php 
+                                                if(in_array('G18', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 19 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G19" <?php 
+                                                if(in_array('G19', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 20 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G20" <?php 
+                                                if(in_array('G20', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 21 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G21" <?php 
+                                                if(in_array('G21', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 22 -->
+                                        <td>G</td>
+                                        <!-- 23 -->
+                                    </tr>
+                                    <!-- H -->
+                                    <tr>
+                                        <td>H</td>
+                                        <!-- 1 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H1" <?php 
+                                                if(in_array('H1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 2 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H2" <?php 
+                                                if(in_array('H2', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 3 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H3" <?php 
+                                                if(in_array('H3', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 4 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H4" <?php 
+                                                if(in_array('H4', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 5 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H5" <?php 
+                                                if(in_array('H5', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 6 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H6" <?php 
+                                                if(in_array('H6', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 7 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H7" <?php 
+                                                if(in_array('H7', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 8 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H8" <?php 
+                                                if(in_array('H8', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 9 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H9" <?php 
+                                                if(in_array('H9', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 10 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H10" <?php 
+                                                if(in_array('H10', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 11 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H11" <?php 
+                                                if(in_array('H11', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 12 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H12" <?php 
+                                                if(in_array('H12', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 13 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H13" <?php 
+                                                if(in_array('H13', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 14 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H14" <?php 
+                                                if(in_array('H14', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 15 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H15" <?php 
+                                                if(in_array('H15', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 16 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H16" <?php 
+                                                if(in_array('H16', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 17 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H17" <?php 
+                                                if(in_array('H17', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 18 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H18" <?php 
+                                                if(in_array('H18', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 19 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H19" <?php 
+                                                if(in_array('H19', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 20 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H20" <?php 
+                                                if(in_array('H20', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 21 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H21" <?php 
+                                                if(in_array('H21', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 22 -->
+                                        <td>H</td>
+                                        <!-- 23 -->
+                                    </tr>
+                                    <!-- I -->
+                                    <tr>
+                                        <td>I</td>
+                                        <!-- 1 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-I" name="sheets[]" value="I1" <?php 
+                                                if(in_array('I1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 2 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I2" <?php 
+                                                if(in_array('I2', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 3 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I3" <?php 
+                                                if(in_array('I3', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 4 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I4" <?php 
+                                                if(in_array('I4', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 5 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I5" <?php 
+                                                if(in_array('I5', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 6 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I6" <?php 
+                                                if(in_array('I6', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 7 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I7" <?php 
+                                                if(in_array('I7', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 8 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I8" <?php 
+                                                if(in_array('I8', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 9 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I9" <?php 
+                                                if(in_array('I9', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 10 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I10" <?php 
+                                                if(in_array('I10', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 11 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I11" <?php 
+                                                if(in_array('I11', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 12 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I12" <?php 
+                                                if(in_array('I12', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 13 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I13" <?php 
+                                                if(in_array('I13', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 14 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I14" <?php 
+                                                if(in_array('I14', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 15 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I15" <?php 
+                                                if(in_array('I15', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 16 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I16" <?php 
+                                                if(in_array('I16', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 17 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I17" <?php 
+                                                if(in_array('I17', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 18 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I18" <?php 
+                                                if(in_array('I18', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 19 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I19" <?php 
+                                                if(in_array('I19', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 20 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I20" <?php 
+                                                if(in_array('I20', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 21 -->
+                                        <td><input type="checkbox" class="seats seat-I" name="sheets[]" value="I21" <?php 
+                                                if(in_array('I21', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 22 -->
+                                        <td>I</td>
+                                        <!-- 23 -->
+                                    </tr>
+                                    <!-- J -->
+                                    <tr>
+                                        <td>J</td>
+                                        <!-- 1 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-J" name="sheets[]" value="J1" <?php 
+                                                if(in_array('J1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 2 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J2" <?php 
+                                                if(in_array('J2', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 3 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J3" <?php 
+                                                if(in_array('J3', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 4 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J4" <?php 
+                                                if(in_array('J4', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 5 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J5" <?php 
+                                                if(in_array('J5', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 6 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J6" <?php 
+                                                if(in_array('J6', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 7 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J7" <?php 
+                                                if(in_array('J7', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 8 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J8" <?php 
+                                                if(in_array('J8', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 9 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J9" <?php 
+                                                if(in_array('J9', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 10 -->
+                                        <td></td>
+                                        <!-- 11 -->
+                                        <td></td>
+                                        <!-- 12 -->
+                                        <td></td>
+                                        <!-- 13 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J13 <?php 
+                                                if(in_array('J1', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 14 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J14 <?php 
+                                                if(in_array('J1', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 15 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J15 <?php 
+                                                if(in_array('J1', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 16 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J16 <?php 
+                                                if(in_array('J1', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 17 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J17 <?php 
+                                                if(in_array('J1', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 18 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J18 <?php 
+                                                if(in_array('J1', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 19 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J19 <?php 
+                                                if(in_array('J1', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 20 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J20 <?php 
+                                                if(in_array('J2', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 21 -->
+                                        <td><input type="checkbox" class="seats seat-J" name="sheets[]" value="J21 <?php 
+                                                if(in_array('J2', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 22 -->
+                                        <td>J</td>
+                                        <!-- 23 -->
+                                    </tr>
+                                    <!-- K -->
+                                    <tr>
+                                        <td>K</td>
+                                        <!-- 1 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-K" name="sheets[]" value="K1" <?php 
+                                                if(in_array('K1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 2 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K2" <?php 
+                                                if(in_array('K2', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 3 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K3" <?php 
+                                                if(in_array('K3', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 4 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K4" <?php 
+                                                if(in_array('K4', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 5 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K5" <?php 
+                                                if(in_array('K5', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 6 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K6" <?php 
+                                                if(in_array('K6', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 7 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K7" <?php 
+                                                if(in_array('K7', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 8 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K8" <?php 
+                                                if(in_array('K8', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 9 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K9" <?php 
+                                                if(in_array('K9', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 10 -->
+                                        <td></td>
+                                        <!-- 11 -->
+                                        <td></td>
+                                        <!-- 12 -->
+                                        <td></td>
+                                        <!-- 13 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K13 <?php 
+                                                if(in_array('K13', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 14 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K14 <?php 
+                                                if(in_array('K14', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 15 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K15 <?php 
+                                                if(in_array('K15', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 16 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K16 <?php 
+                                                if(in_array('K16', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 17 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K17 <?php 
+                                                if(in_array('K17', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 18 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K18 <?php 
+                                                if(in_array('K18', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 19 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K19 <?php 
+                                                if(in_array('K19', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 20 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K20 <?php 
+                                                if(in_array('K20', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 21 -->
+                                        <td><input type="checkbox" class="seats seat-K" name="sheets[]" value="K21 <?php 
+                                                if(in_array('K21', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 22 -->
+                                        <td>K</td>
+                                        <!-- 23 -->
+                                    </tr>
+                                    <!-- L -->
+                                    <tr>
+                                        <td>L</td>
+                                        <!-- 1 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-L" name="sheets[]" value="L1" <?php 
+                                                if(in_array('L1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 2 -->
+                                        <td><input type="checkbox" class="seats seat-L" name="sheets[]" value="L2" <?php 
+                                                if(in_array('L2', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 3 -->
+                                        <td></td>
+                                        <!-- 4 -->
+                                        <td><input type="checkbox" class="seats seat-L" name="sheets[]" value="L3" <?php 
+                                                if(in_array('L3', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 5 -->
+                                        <td></td>
+                                        <!-- 6 -->
+                                        <td><input type="checkbox" class="seats seat-L" name="sheets[]" value="L4" <?php 
+                                                if(in_array('L4', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 7 -->
+                                        <td></td>
+                                        <!-- 8 -->
+                                        <td><input type="checkbox" class="seats seat-L" name="sheets[]" value="L5" <?php 
+                                                if(in_array('L5', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 9 -->
+                                        <td></td>
+                                        <!-- 10 -->
+                                        <td></td>
+                                        <!-- 11 -->
+                                        <td></td>
+                                        <!-- 12 -->
+                                        <td></td>
+                                        <!-- 13 -->
+                                        <td></td>
+                                        <!-- 14 -->
+                                        <td></td>
+                                        <!-- 15 -->
+                                        <td></td>
+                                        <!-- 16 -->
+                                        <td><input type="checkbox" class="seats seat-L" name="sheets[]" value="L16 <?php 
+                                                if(in_array('L16', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 17 -->
+                                        <td><input type="checkbox" class="seats seat-L" name="sheets[]" value="L17 <?php 
+                                                if(in_array('L17', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 18 -->
+                                        <td></td>
+                                        <!-- 19 -->
+                                        <td><input type="checkbox" class="seats seat-L" name="sheets[]" value="L19 <?php 
+                                                if(in_array('L19', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 20 -->
+                                        <td><input type="checkbox" class="seats seat-L" name="sheets[]" value="L20 <?php 
+                                                if(in_array('L20', $sheetsBooed)) echo "checked disabled";
+                                            ?>"></td>
+                                        <!-- 21 -->
+                                        <td></td>
+                                        <!-- 22 -->
+                                        <td>L</td>
+                                        <!-- 23 -->
+                                    </tr>
+                                </table>
+                            </center>
+                        </div>
+                    <?php } ?>
+                    <?php
+                    if ($row['htype'] == '2' && isset($_GET['type']) && isset($_GET['date']) && isset($_GET['hour'])) {
+                    ?>
+                        <div class="seatStructure" style="width: 100%">
+                            <center>
+                                <p>Screen This Side</p>
+                                <table id="seatsBlock">
+                                    <p id="notification"></p>
+                                    <tr>
+                                        <td>A</td>
+                                        <!-- 15 -->
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <?php 
+                                            for($a = 1; $a <= 15; $a++){
+                                                $seatA = "A".$a;
+                                        ?>
+                                        <td>
+                                            <input type="checkbox" class="seats seat-A" name="sheets[]" value="<?php echo $seatA; ?>" <?php 
+                                                if(in_array($seatA, $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <?php } ?>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>A</td>
+                                    </tr>
+                                    <tr>
+                                        <td>B</td>
+                                        <!-- 17 -->
+                                        <td></td>
+                                        <td></td>
+                                        <?php 
+                                            for($b = 1; $b <= 17; $b++){
+                                                $seatB = "B".$b;
+                                        ?>
+                                        <td>
+                                            <input type="checkbox" class="seats seat-B" name="sheets[]" value="<?php echo $seatB; ?>" <?php 
+                                                if(in_array($seatB, $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <?php } ?>
+                                        <td></td>
+                                        <td></td>
+                                        <td>B</td>
+                                    </tr>
+                                    <tr>
+                                        <td>C</td>
+                                        <!-- 17 -->
+                                        <td></td>
+                                        <td></td>
+                                        <?php 
+                                            for($c = 1; $c <= 17; $c++){
+                                                $seatC = "B".$c;
+                                        ?>
+                                        <td>
+                                            <input type="checkbox" class="seats seat-C" name="sheets[]" value="<?php echo $seatC; ?>" <?php 
+                                                if(in_array($seatC, $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <?php } ?>
+                                        <td></td>
+                                        <td></td>
+                                        <td>C</td>
+                                    </tr>
+                                    <tr>
+                                        <td>D</td>
+                                        <!-- 19 -->
+                                        <td></td>
+                                        <?php 
+                                            for($d = 1; $d <= 19; $d++){
+                                                $seatD = "D".$d;
+                                        ?>
+                                        <td>
+                                            <input type="checkbox" class="seats seat-D" name="sheets[]" value="<?php echo $seatD; ?>" <?php 
+                                                if(in_array($seatD, $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <?php } ?>
+                                        <td></td>
+                                        <td>D</td>
+                                    </tr>
+                                    <tr>
+                                        <td>E</td>
+                                        <!-- 19 -->
+                                        <td></td>
+                                        <?php 
+                                            for($e = 1; $e <= 19; $e++){
+                                                $seatE = "E".$e;
+                                        ?>
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="<?php echo $seatE; ?>" <?php 
+                                                if(in_array($seatE, $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <?php } ?>
+                                        <td></td>
+                                        <td>E</td>
+                                    </tr>
+                                    <tr>
+                                        <td>F</td>
+                                        <!-- 21 -->
+                                        <?php 
+                                            for($f = 1; $f <= 21; $f++){
+                                                $seatF = "F".$f;
+                                        ?>
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="<?php echo $seatF; ?>" <?php 
+                                                if(in_array($seatF, $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <?php } ?>
+                                        <td>F</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G</td>
+                                        <!-- 21 -->
+                                        <?php 
+                                            for($g = 1; $g <= 21; $g++){
+                                                $seatG = "G".$g;
+                                        ?>
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="<?php echo $seatG; ?>" <?php 
+                                                if(in_array($seatG, $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <?php } ?>
+                                        <td>G</td>
+                                    </tr>
+                                    <tr>
+                                        <td>H</td>
+                                        <!-- 20 -->
+                                        <?php 
+                                            for($h = 1; $h <= 20; $h++){
+                                                $seatH = "H".$h;
+                                        ?>
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="<?php echo $seatH; ?>" <?php 
+                                                if(in_array($seatH, $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <?php } ?>
+                                        <td></td>
+                                        <td>H</td>
+                                    </tr>
+                                </table>
+                            </center>
+                        </div>
+                    <?php } ?>
+                    <br />
+                    <?php
+                    if ($row['htype'] == '3' && isset($_GET['type']) && isset($_GET['date']) && isset($_GET['hour'])) {
+                    ?>
+                        <!-- <div class="inputForm" style="width: 100%">
+                            <center>
+                                Name *: <input type="text" id="Username" required>
+                                Number of Seats *: <input type="number" id="Numseats" required>
+                                <br /><br />
+                                <button onclick="takeData()">Start Selecting</button>
+                            </center>
+                        </div> -->
+                        <div class="seatStructure" style="width: 100%">
+                            <center>
+                                <p>Screen This Side</p>
+                                <table id="seatsBlock">
+                                    <p id="notification"></p>
+                                    <tr>
+                                        <td></td>
+                                        <!-- 1 -->
+                                        <td>A</td>
+                                        <!-- 2 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-A" name="sheets[]" value="A1" <?php 
+                                                if(in_array('A1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 3 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A2" <?php 
+                                                if(in_array('A2', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 4 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A3" <?php 
+                                                if(in_array('A3', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 5 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A4" <?php 
+                                                if(in_array('A4', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 6 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A5" <?php 
+                                                if(in_array('A5', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 7 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A6" <?php 
+                                                if(in_array('A6', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 8 -->
+                                        <td><input type="checkbox" class="seats seat-A" name="sheets[]" value="A7" <?php 
+                                                if(in_array('A7', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 9 -->
+                                        <td>A</td>
+                                        <!-- 10 -->
+                                        <td></td>
+                                        <!-- 11 -->
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <!-- 1 -->
+                                        <td>B</td>
+                                        <!-- 2 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-B" name="sheets[]" value="B1" <?php 
+                                                if(in_array('B1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 3 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]" value="B2" <?php 
+                                                if(in_array('B2', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 4 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]" value="B3" <?php 
+                                                if(in_array('B3', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 5 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]" value="B4" <?php 
+                                                if(in_array('B4', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 6 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]" value="B5" <?php 
+                                                if(in_array('B5', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 7 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]" value="B6" <?php 
+                                                if(in_array('B6', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 8 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]" value="B7" <?php 
+                                                if(in_array('B7', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 9 -->
+                                        <td><input type="checkbox" class="seats seat-B" name="sheets[]" value="B8" <?php 
+                                                if(in_array('B8', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 10 -->
+                                        <td>B</td>
+                                        <!-- 11 -->
+                                    </tr>
+                                    <tr>
+                                        <td>C</td>
+                                        <!-- 1 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-C" name="sheets[]" value="C1" <?php 
+                                                if(in_array('C1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 2 -->
+                                        <td><input type="checkbox" class="seatsseat-C" name="sheets[]" value="C2" <?php 
+                                                if(in_array('C2', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 3 -->
+                                        <td><input type="checkbox" class="seatsseat-C" name="sheets[]" value="C3" <?php 
+                                                if(in_array('C3', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 4 -->
+                                        <td><input type="checkbox" class="seatsseat-C" name="sheets[]" value="C4" <?php 
+                                                if(in_array('C4', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 5 -->
+                                        <td><input type="checkbox" class="seatsseat-C" name="sheets[]" value="C5" <?php 
+                                                if(in_array('C5', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 6 -->
+                                        <td><input type="checkbox" class="seatsseat-C" name="sheets[]" value="C6" <?php 
+                                                if(in_array('C6', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 7 -->
+                                        <td><input type="checkbox" class="seatsseat-C" name="sheets[]" value="C7" <?php 
+                                                if(in_array('C7', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 8 -->
+                                        <td><input type="checkbox" class="seatsseat-C" name="sheets[]" value="C8" <?php 
+                                                if(in_array('C8', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 9 -->
+                                        <td><input type="checkbox" class="seatsseat-C" name="sheets[]" value="C9" <?php 
+                                                if(in_array('C9', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 10 -->
+                                        <td>C</td>
+                                        <!-- 11 -->
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <!-- 1 -->
+                                        <td>D</td>
+                                        <!-- 2 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-D" name="sheets[]" value="D1" <?php 
+                                                if(in_array('D1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 3 -->
+                                        <td><input type="checkbox" class="seatsseat-D" name="sheets[]" value="D2" <?php 
+                                                if(in_array('D2', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 4 -->
+                                        <td><input type="checkbox" class="seatsseat-D" name="sheets[]" value="D3" <?php 
+                                                if(in_array('D3', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 5 -->
+                                        <td><input type="checkbox" class="seatsseat-D" name="sheets[]" value="D4" <?php 
+                                                if(in_array('D4', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 6 -->
+                                        <td><input type="checkbox" class="seatsseat-D" name="sheets[]" value="D5" <?php 
+                                                if(in_array('D5', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 7 -->
+                                        <td><input type="checkbox" class="seatsseat-D" name="sheets[]" value="D6" <?php 
+                                                if(in_array('D6', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 8 -->
+                                        <td><input type="checkbox" class="seatsseat-D" name="sheets[]" value="D7" <?php 
+                                                if(in_array('D7', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 9 -->
+                                        <td><input type="checkbox" class="seatsseat-D" name="sheets[]" value="D8" <?php 
+                                                if(in_array('D8', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 10 -->
+                                        <td>D</td>
+                                        <!-- 11 -->
+                                    </tr>
+                                    <tr>
+                                        <td>E</td>
+                                        <!-- 1 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-E" name="sheets[]" value="E1" <?php 
+                                                if(in_array('E1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 2 -->
+                                        <td><input type="checkbox" class="seats seat-E" name="sheets[]" value="E2" <?php 
+                                                if(in_array('E2', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 3 -->
+                                        <td><input type="checkbox" class="seats seat-E" name="sheets[]" value="E3" <?php 
+                                                if(in_array('E3', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 4 -->
+                                        <td><input type="checkbox" class="seats seat-E" name="sheets[]" value="E4" <?php 
+                                                if(in_array('E4', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 5 -->
+                                        <td><input type="checkbox" class="seats seat-E" name="sheets[]" value="E5" <?php 
+                                                if(in_array('E5', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 6 -->
+                                        <td><input type="checkbox" class="seats seat-E" name="sheets[]" value="E6" <?php 
+                                                if(in_array('E6', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 7 -->
+                                        <td><input type="checkbox" class="seats seat-E" name="sheets[]" value="E7" <?php 
+                                                if(in_array('E7', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 8 -->
+                                        <td><input type="checkbox" class="seats seat-E" name="sheets[]" value="E8" <?php 
+                                                if(in_array('E8', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 9 -->
+                                        <td><input type="checkbox" class="seats seat-E" name="sheets[]" value="E9" <?php 
+                                                if(in_array('E9', $sheetsBooed)) echo "checked disabled";
+                                            ?>></td>
+                                        <!-- 10 -->
+                                        <td>E</td>
+                                        <!-- 11 -->
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <!-- 1 -->
+                                        <td>F</td>
+                                        <!-- 2 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F1" <?php 
+                                                if(in_array('F1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 3 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F2" <?php 
+                                                if(in_array('F2', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 4 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F3" <?php 
+                                                if(in_array('F3', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 5 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F4" <?php 
+                                                if(in_array('F4', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 6 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F5" <?php 
+                                                if(in_array('F5', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 7 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F6" <?php 
+                                                if(in_array('F6', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 8 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F7" <?php 
+                                                if(in_array('F7', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 9 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-F" name="sheets[]" value="F8" <?php 
+                                                if(in_array('F8', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 10 -->
+                                        <td>F</td>
+                                        <!-- 11 -->
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <!-- 1 -->
+                                        <td></td>
+                                        <!-- 2 -->
+                                        <td></td>
+                                        <!-- 3 -->
+                                        <td>G</td>
+                                        <!-- 4 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G1" <?php 
+                                                if(in_array('G1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 5 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G2" <?php 
+                                                if(in_array('G2', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 6 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G3" <?php 
+                                                if(in_array('G3', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 7 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G4" <?php 
+                                                if(in_array('G4', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 8 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G5" <?php 
+                                                if(in_array('G5', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 9 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-G" name="sheets[]" value="G6" <?php 
+                                                if(in_array('G6', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 10 -->
+                                        <td>G</td>
+                                        <!-- 11 -->
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <!-- 1 -->
+                                        <td></td>
+                                        <!-- 2 -->
+                                        <td></td>
+                                        <!-- 3 -->
+                                        <td></td>
+                                        <!-- 4 -->
+                                        <td>H</td>
+                                        <!-- 5 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H1" <?php 
+                                                if(in_array('H1', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 6 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H2" <?php 
+                                                if(in_array('H2', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 7 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H3" <?php 
+                                                if(in_array('H3', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 8 -->
+                                        <td>
+                                            <input type="checkbox" class="seats seat-H" name="sheets[]" value="H4" <?php 
+                                                if(in_array('H4', $sheetsBooed)) echo "checked disabled";
+                                            ?>>
+                                        </td>
+                                        <!-- 9 -->
+                                        <td>H</td>
+                                        <!-- 10 -->
+                                        <td></td>
+                                        <!-- 11 -->
+                                    </tr>
+                                </table>
+                            </center>
+                        </div>
+                    <?php } ?>
+                    <br />
+                    <button type="submit" id="submitButton" value="save" name="submit" class="form-btn">Book a seat</button>
                     
-  
-<div class="inputForm">
-<center>
-  Name *: <input type="text" id="Username" required>
-  Number of Seats *: <input type="number" id="Numseats" required>
-  <br/><br/>
-  <button onclick="takeData()">Start Selecting</button>
-</center>
-</div>
-  
-
-<div class="seatStructure">
-<center>
-  
-<table id="seatsBlock">
- <p id="notification"></p>
-  
-  
-  <tr>
-    <td></td>&nbsp;
-    <td>1</td>
-    <td>2</td>
-    <td>3</td>
-    <td>4</td>
-    <td>5</td>
-    <td></td>
-    <td>6</td>
-    <td>7</td>
-    <td>8</td>
-    <td>9</td>
-    <td>10</td>
-    <td>11</td>
-    <td>12</td>
-    <td>13</td>
-    <td>14</td>
-    <td>15</td>
-</tr>
-  
-<tr>
-    <td>A</td>
-    <td><input type="checkbox" class="seats" value="A1"></td>
-    <td><input type="checkbox" class="seats" value="A2"></td>
-    <td><input type="checkbox" class="seats" value="A3"></td>
-    <td><input type="checkbox" class="seats" value="A4"></td>
-    <td><input type="checkbox" class="seats" value="A5"></td>
-    <td><input type="checkbox" class="seats" value="A6"></td>
-    <td><input type="checkbox" class="seats" value="A7"></td>
-    <td><input type="checkbox" class="seats" value="A8"></td>
-    <td><input type="checkbox" class="seats" value="A9"></td>
-    <td><input type="checkbox" class="seats" value="A10"></td>
-    <td><input type="checkbox" class="seats" value="A11"></td>
-    <td><input type="checkbox" class="seats" value="A12"></td>
-    <td><input type="checkbox" class="seats" value="A13"></td>
-    <td><input type="checkbox" class="seats" value="A14"></td>
-    <td><input type="checkbox" class="seats" value="A15"></td>
-    <td>A</td>
-  </tr>
-  
-  <tr>
-    <td>B</td>
-    <td><input type="checkbox" class="seats" value="B1"></td>
-    <td><input type="checkbox" class="seats" value="B2"></td>
-    <td><input type="checkbox" class="seats" value="B3"></td>
-    <td><input type="checkbox" class="seats" value="B4"></td>
-    <td><input type="checkbox" class="seats" value="B5"></td>
-    <td><input type="checkbox" class="seats" value="B6"></td>
-    <td><input type="checkbox" class="seats" value="B7"></td>
-    <td><input type="checkbox" class="seats" value="B8"></td>
-    <td><input type="checkbox" class="seats" value="B9"></td>
-    <td><input type="checkbox" class="seats" value="B10"></td>
-    <td><input type="checkbox" class="seats" value="B11"></td>
-    <td><input type="checkbox" class="seats" value="B12"></td>
-    <td><input type="checkbox" class="seats" value="B13"></td>
-    <td><input type="checkbox" class="seats" value="B14"></td>
-    <td><input type="checkbox" class="seats" value="B15"></td>
-    <td><input type="checkbox" class="seats" value="B16"></td>
-    <td>B</td>
-  </tr>
-  
-  <tr>
-    <td>C</td>
-    <td><input type="checkbox" class="seats" value="C1"></td>
-    <td><input type="checkbox" class="seats" value="C2"></td>
-    <td><input type="checkbox" class="seats" value="C3"></td>
-    <td><input type="checkbox" class="seats" value="C4"></td>
-    <td><input type="checkbox" class="seats" value="C5"></td>
-    <td><input type="checkbox" class="seats" value="C6"></td>
-    <td><input type="checkbox" class="seats" value="C7"></td>
-    <td><input type="checkbox" class="seats" value="C8"></td>
-    <td><input type="checkbox" class="seats" value="C9"></td>
-    <td><input type="checkbox" class="seats" value="C10"></td>
-    <td><input type="checkbox" class="seats" value="C11"></td>
-    <td><input type="checkbox" class="seats" value="C12"></td>
-    <td><input type="checkbox" class="seats" value="C13"></td>
-    <td><input type="checkbox" class="seats" value="C14"></td>
-    <td><input type="checkbox" class="seats" value="C15"></td>
-    <td><input type="checkbox" class="seats" value="C16"></td>
-    <td><input type="checkbox" class="seats" value="C17"></td>
-</tr>
-  
-<tr>
-    <td>D</td>
-    <td><input type="checkbox" class="seats" value="D1"></td>
-    <td><input type="checkbox" class="seats" value="D2"></td>
-    <td><input type="checkbox" class="seats" value="D3"></td>
-    <td><input type="checkbox" class="seats" value="D4"></td>
-    <td><input type="checkbox" class="seats" value="D5"></td>
-    <td><input type="checkbox" class="seats" value="D6"></td>
-    <td><input type="checkbox" class="seats" value="D7"></td>
-    <td><input type="checkbox" class="seats" value="D8"></td>
-    <td><input type="checkbox" class="seats" value="D9"></td>
-    <td><input type="checkbox" class="seats" value="D10"></td>
-    <td><input type="checkbox" class="seats" value="D11"></td>
-    <td><input type="checkbox" class="seats" value="D12"></td>
-    <td><input type="checkbox" class="seats" value="D13"></td>
-    <td><input type="checkbox" class="seats" value="D14"></td>
-    <td><input type="checkbox" class="seats" value="D15"></td>
-    <td><input type="checkbox" class="seats" value="D16"></td>
-    <td><input type="checkbox" class="seats" value="D17"></td>
-    <td><input type="checkbox" class="seats" value="D18"></td>
-</tr>
-  
-<tr>
-    <td>E</td>
-    <td><input type="checkbox" class="seats" value="E1"></td>
-    <td><input type="checkbox" class="seats" value="E2"></td>
-    <td><input type="checkbox" class="seats" value="E3"></td>
-    <td><input type="checkbox" class="seats" value="E4"></td>
-    <td><input type="checkbox" class="seats" value="E5"></td>
-    <td><input type="checkbox" class="seats" value="E6"></td>
-    <td><input type="checkbox" class="seats" value="E7"></td>
-    <td><input type="checkbox" class="seats" value="E8"></td>
-    <td><input type="checkbox" class="seats" value="E9"></td>
-    <td><input type="checkbox" class="seats" value="E10"></td>
-    <td><input type="checkbox" class="seats" value="E11"></td>
-    <td><input type="checkbox" class="seats" value="E12"></td>
-    <td><input type="checkbox" class="seats" value="E13"></td>
-    <td><input type="checkbox" class="seats" value="E14"></td>
-    <td><input type="checkbox" class="seats" value="E15"></td>
-    <td><input type="checkbox" class="seats" value="E16"></td>
-    <td><input type="checkbox" class="seats" value="E16"></td>
-    <td><input type="checkbox" class="seats" value="E17"></td>
-    <td><input type="checkbox" class="seats" value="E18"></td>
-    <td><input type="checkbox" class="seats" value="E19"></td>
-</tr>
-  
-<tr class="seatVGap"></tr>
-  
-<tr>
-    <td>F</td>
-    <td><input type="checkbox" class="seats" value="F1"></td>
-    <td><input type="checkbox" class="seats" value="F2"></td>
-    <td><input type="checkbox" class="seats" value="F3"></td>
-    <td><input type="checkbox" class="seats" value="F4"></td>
-    <td><input type="checkbox" class="seats" value="F5"></td>
-    <td><input type="checkbox" class="seats" value="F6"></td>
-    <td><input type="checkbox" class="seats" value="F7"></td>
-    <td><input type="checkbox" class="seats" value="F8"></td>
-    <td><input type="checkbox" class="seats" value="F9"></td>
-    <td><input type="checkbox" class="seats" value="F10"></td>
-    <td><input type="checkbox" class="seats" value="F11"></td>
-    <td><input type="checkbox" class="seats" value="F12"></td>
-    <td><input type="checkbox" class="seats" value="F13"></td>
-    <td><input type="checkbox" class="seats" value="F14"></td>
-    <td><input type="checkbox" class="seats" value="F15"></td>
-    <td><input type="checkbox" class="seats" value="F16"></td>
-    <td><input type="checkbox" class="seats" value="F17"></td>
-    <td><input type="checkbox" class="seats" value="F18"></td>
-    <td><input type="checkbox" class="seats" value="F19"></td>
-    <td><input type="checkbox" class="seats" value="F20"></td>
-</tr>
-  
-<tr>
-    <td>G</td>
-    <td><input type="checkbox" class="seats" value="G1"></td>
-    <td><input type="checkbox" class="seats" value="G2"></td>
-    <td><input type="checkbox" class="seats" value="G3"></td>
-    <td><input type="checkbox" class="seats" value="G4"></td>
-    <td><input type="checkbox" class="seats" value="G5"></td>
-    <td><input type="checkbox" class="seats" value="G6"></td>
-    <td><input type="checkbox" class="seats" value="G7"></td>
-    <td><input type="checkbox" class="seats" value="G8"></td>
-    <td><input type="checkbox" class="seats" value="G9"></td>
-    <td><input type="checkbox" class="seats" value="G10"></td>
-    <td><input type="checkbox" class="seats" value="G11"></td>
-    <td><input type="checkbox" class="seats" value="G12"></td>
-    <td><input type="checkbox" class="seats" value="G13"></td>
-    <td><input type="checkbox" class="seats" value="G14"></td>
-    <td><input type="checkbox" class="seats" value="G15"></td>
-    <td><input type="checkbox" class="seats" value="G16"></td>
-    <td><input type="checkbox" class="seats" value="G17"></td>
-    <td><input type="checkbox" class="seats" value="G18"></td>
-    <td><input type="checkbox" class="seats" value="G19"></td>
-    <td><input type="checkbox" class="seats" value="G20"></td>
-    <td><input type="checkbox" class="seats" value="G21"></td>
-</tr>
-  
-<tr>
-    <td>H</td>
-    <td><input type="checkbox" class="seats" value="H1"></td>
-    <td><input type="checkbox" class="seats" value="H2"></td>
-    <td><input type="checkbox" class="seats" value="H3"></td>
-    <td><input type="checkbox" class="seats" value="H4"></td>
-    <td><input type="checkbox" class="seats" value="H5"></td>
-    <td><input type="checkbox" class="seats" value="H6"></td>
-    <td><input type="checkbox" class="seats" value="H7"></td>
-    <td><input type="checkbox" class="seats" value="H8"></td>
-    <td><input type="checkbox" class="seats" value="H9"></td>
-    <td><input type="checkbox" class="seats" value="H10"></td>
-    <td><input type="checkbox" class="seats" value="H11"></td>
-    <td><input type="checkbox" class="seats" value="H12"></td>
-    <td><input type="checkbox" class="seats" value="H13"></td>
-    <td><input type="checkbox" class="seats" value="H14"></td>
-    <td><input type="checkbox" class="seats" value="H15"></td>
-    <td><input type="checkbox" class="seats" value="H16"></td>
-    <td><input type="checkbox" class="seats" value="H17"></td>
-    <td><input type="checkbox" class="seats" value="H18"></td>
-    <td><input type="checkbox" class="seats" value="H19"></td>
-    <td><input type="checkbox" class="seats" value="H20"></td>
-    <td><input type="checkbox" class="seats" value="H21"></td>
-    <td><input type="checkbox" class="seats" value="H22"></td>
-</tr>
-
-</table>
-  
-
- 
-<?php } ?>
-
-                    <button type="submit" value="save" name="submit" class="form-btn">Book a seat</button>
-
-                </form> 
-               
-
+                </form>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -678,11 +2050,95 @@ input[type=checkbox]:checked:before {
 
     <script src="scripts/jquery-3.3.1.min.js "></script>
     <script src="scripts/script.js "></script>
-        <script src="http://140.116.219.85/chair/seat/js/jquery.seat-charts.js"></script>
- <script>
-   
+    <script src="http://140.116.219.85/chair/seat/js/jquery.seat-charts.js"></script>
+    <script>
+        $('#BookTicket').submit(function(e) {
+            // e.preventDefault();
+            // do your things ...
+            var valid = true;
+            if ($('input[name^=sheets]:checked:not(:disabled)').length <= 0) {
+                alert("Please select booking sheets");
+            } else {
+                var selectCols = []
+                $("input[name^=sheets]:checked:not(:disabled)").each(function(index){
+                    var rowNumber = $(this).val();
+                    var rowName = rowNumber.charAt(0);
+                    // alert("checked element value : " + rowName);
+                    selectCols.indexOf(rowName) === -1 ? selectCols.push(rowName):'';
+                    var rowLength = $(".seat-"+rowName).length;
+                    // alert("row rowLength: " + rowLength);
+                    // var selectedLength = $(".seat-A:checkbox)").length;
+                    // alert("row selectedLength: " + selectedLength);
+                    // var newSeats = $(".seat-A:checkbox:checked:not(:disabled))").length;
+                    // alert("row newSeats: " + newSeats);
+                });
+                console.log('selectCols', selectCols);
+                $.each( selectCols, function( key, value ) {
+                    var rowLength = $(".seat-"+value).length;
+                    var bookedLength = $(".seat-"+value).filter("[disabled]").length;
+                    var newBookLength = $(".seat-"+value).not("[disabled]").filter(':checked').length;
 
- </script>
+                    var rangBook = (100 * bookedLength) / rowLength;
+                    if(rangBook > 60 && newBookLength == 1){
+                        alert('Choose corner seat or different seat for single');
+                        valid = false;
+                    }
+                    // console.log('rowLength:', rowLength);
+                    // console.log('bookedLength:', bookedLength);
+                    // console.log('newBookLength:', newBookLength);
+                });
+            }
+            if(valid == true){
+                console.log('BookTicket');
+                return true;
+            } else {
+                return false;
+            }
+            // and when you done:
+            // $(this).submit();
+        });
+
+        // $('#submitButton').click(function () {
+        //     console.log('submitButton');
+        //     if ($('input[name^=sheets]:checked:not(:disabled)').length <= 0) {
+        //         alert("Please select booking sheets");
+        //     } else {
+        //         var valid = true;
+        //         var selectCols = []
+        //         $("input[name^=sheets]:checked:not(:disabled)").each(function(index){
+        //             var rowNumber = $(this).val();
+        //             var rowName = rowNumber.charAt(0);
+        //             // alert("checked element value : " + rowName);
+        //             selectCols.indexOf(rowName) === -1 ? selectCols.push(rowName):'';
+        //             var rowLength = $(".seat-"+rowName).length;
+        //             // alert("row rowLength: " + rowLength);
+        //             // var selectedLength = $(".seat-A:checkbox)").length;
+        //             // alert("row selectedLength: " + selectedLength);
+        //             // var newSeats = $(".seat-A:checkbox:checked:not(:disabled))").length;
+        //             // alert("row newSeats: " + newSeats);
+        //         });
+        //         console.log('selectCols', selectCols);
+        //         $.each( selectCols, function( key, value ) {
+        //             var rowLength = $(".seat-"+value).length;
+        //             var bookedLength = $(".seat-"+value).filter("[disabled]").length;
+        //             var newBookLength = $(".seat-"+value).not("[disabled]").filter(':checked').length;
+
+        //             var rangBook = (100 * bookedLength) / rowLength;
+        //             if(rangBook > 60 && newBookLength == 1){
+        //                 alert('You can not book single seat if row book grater then 60%');
+        //                 valid = false;
+        //             }
+        //             // console.log('rowLength:', rowLength);
+        //             // console.log('bookedLength:', bookedLength);
+        //             // console.log('newBookLength:', newBookLength);
+        //         });
+        //         if(valid){
+        //             console.log('BookTicket');
+        //             $("#BookTicket").submit();
+        //         }
+        //     }
+        // });
+    </script>
 </body>
 
 </html>
