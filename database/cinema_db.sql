@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jun 08, 2023 at 08:01 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.4.27
+-- Host: 127.0.0.1
+-- Generation Time: Jun 11, 2023 at 01:25 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -89,29 +89,16 @@ CREATE TABLE `bookingtable` (
   `bookingEmail` varchar(255) NOT NULL,
   `amount` varchar(255) NOT NULL,
   `ORDERID` varchar(255) NOT NULL,
-  `DATE-TIME` datetime NOT NULL DEFAULT current_timestamp()
+  `DATE-TIME` datetime NOT NULL DEFAULT current_timestamp(),
+  `userid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bookingtable`
 --
 
-INSERT INTO `bookingtable` (`bookingID`, `movieID`, `bookingTheatre`, `bookingType`, `bookingDate`, `bookingTime`, `bookingFName`, `bookingLName`, `bookingPNumber`, `bookingEmail`, `amount`, `ORDERID`, `DATE-TIME`) VALUES
-(1, 1, '', '2d', '2023-06-13', '12', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR35281077', '2023-06-05 20:28:39'),
-(10, 1, '', '2d', '2023-06-13', '12', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR35281077', '2023-06-05 20:28:39'),
-(11, 1, '1', '3d', '2023-06-13', '12', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR80301027', '2023-06-05 23:37:08'),
-(13, 1, '1', '3d', '2023-06-12', '09', 'gaurav2', '222', '8866604285', '', 'Not Paid', 'ARVR59521449', '2023-06-05 23:40:10'),
-(14, 1, '1', '2d', '2023-06-12', '09', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR35421679', '2023-06-05 23:43:16'),
-(17, 1, '1', '3d', '2023-06-12', '09', 'gaurav', '10', '8866604285', '', 'Not Paid', 'ARVR44331308', '2023-06-06 21:53:44'),
-(24, 1, '1', '3d', '2023-06-12', '09', 'gaurav', 'b', '8866604285', '', 'Not Paid', 'ARVR93630984', '2023-06-06 22:12:01'),
-(25, 1, '1', '3d', '2023-06-12', '09', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR12278441', '2023-06-06 22:15:02'),
-(26, 1, '1', '3d', '2023-06-12', '09', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR73549381', '2023-06-07 21:41:38'),
-(27, 2, '2', '3d', '2023-06-12', '09', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR20881406', '2023-06-08 22:26:46'),
-(28, 2, '2', '3d', '2023-06-12', '09', 'gaurav', 'patel2', '8866604285', '', 'Not Paid', 'ARVR24054888', '2023-06-08 22:44:35'),
-(29, 3, '3', '3d', '2023-06-12', '09', 'gaurav', '3333', '8866604285', '', 'Not Paid', 'ARVR48589536', '2023-06-08 22:56:23'),
-(30, 3, '3', '3d', '2023-06-12', '09', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR59374620', '2023-06-08 22:56:47'),
-(31, 2, '2', '3d', '2023-06-12', '09', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR83562207', '2023-06-08 23:05:14'),
-(32, 2, '2', '3d', '2023-06-12', '09', 'gaurav', 'patel', '8866604285', '', 'Not Paid', 'ARVR97098211', '2023-06-08 23:05:40');
+INSERT INTO `bookingtable` (`bookingID`, `movieID`, `bookingTheatre`, `bookingType`, `bookingDate`, `bookingTime`, `bookingFName`, `bookingLName`, `bookingPNumber`, `bookingEmail`, `amount`, `ORDERID`, `DATE-TIME`, `userid`) VALUES
+(1, 1, '1', '3d', '2023-06-12', '12', 'Dipali', 'kaswala', '07575757575', '', 'Paid', 'ARVR6677923', '2023-06-11 16:53:18', 0);
 
 -- --------------------------------------------------------
 
@@ -142,6 +129,41 @@ INSERT INTO `feedbacktable` (`msgID`, `senderfName`, `senderlName`, `sendereMail
 
 CREATE TABLE `movie` (
   `mid` int(11) NOT NULL,
+  `image` varchar(150) NOT NULL,
+  `movieName` varchar(100) NOT NULL,
+  `movieGenre` varchar(50) NOT NULL,
+  `movieDuration` int(11) NOT NULL,
+  `movieRelDate` date NOT NULL,
+  `movieDirector` varchar(50) NOT NULL,
+  `movieActors` varchar(150) NOT NULL,
+  `mainhall` int(11) NOT NULL,
+  `viphall` int(11) NOT NULL,
+  `privatehall` int(11) NOT NULL,
+  `htype` int(11) NOT NULL,
+  `userid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `movie`
+--
+
+INSERT INTO `movie` (`mid`, `image`, `movieName`, `movieGenre`, `movieDuration`, `movieRelDate`, `movieDirector`, `movieActors`, `mainhall`, `viphall`, `privatehall`, `htype`, `userid`) VALUES
+(1, 'img/movie-poster-1.jpg', 'Captain Marvel', ' Action, Adventure, Sci-Fi ', 220, '2018-10-18', 'Anna Boden, Ryan Fleck', 'Brie Larson, Samuel L. Jackson, Ben Mendelsohn', 0, 0, 0, 1, 0),
+(2, 'img/RRR_Poster.jpg', 'RRR', 'Action', 220, '2022-03-25', 'S. S. Rajamouli', 'Ahmed Adam, Bayyumy Fouad, Salah Abdullah , Entsar, Dina Fouad N. T. Rama Rao Jr., Ram Charan, Ajay Devgn, Alia B...', 400, 500, 500, 2, 0),
+(3, 'img/movie-poster-3.jpg', 'The Lego Movie', 'Animation, Action, Adventure', 110, '2014-02-07', 'Phil Lord, Christopher Miller', 'Chris Pratt, Will Ferrell, Elizabeth Banks', 0, 0, 0, 3, 0),
+(4, 'img/movie-poster-4.jpg', 'Nadi Elregal Elserri ', 'Comedy', 105, '2019-01-23', ' Ayman Uttar', 'Karim Abdul Aziz, Ghada Adel, Maged El Kedwany, Nesreen Tafesh, Bayyumy Fouad, Moataz El Tony ', 0, 0, 0, 1, 0),
+(5, 'img/movie-poster-5.jpg', 'VICE', 'Biography, Comedy, Drama', 132, '2018-12-25', 'Adam McKay', 'Christian Bale, Amy Adams, Steve Carell', 0, 0, 0, 2, 0),
+(6, 'img/movie-poster-6.jpg', 'The Vanishing', 'Crime, Mystery, Thriller', 107, '2019-01-04', 'Kristoffer Nyholm', 'Gerard Butler, Peter Mullan, Connor Swindells', 0, 0, 0, 3, 0),
+(70, 'img/RRR_Poster.jpg', 'RRR', 'Action', 220, '2022-03-25', 'S. S. Rajamouli', 'N. T. Rama Rao Jr., Ram Charan, Ajay Devgn, Alia Bhatt', 400, 500, 500, 3, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `movie_old`
+--
+
+CREATE TABLE `movie_old` (
+  `mid` int(11) NOT NULL,
   `movieName` varchar(100) NOT NULL,
   `movieCast` varchar(100) NOT NULL,
   `facts` text NOT NULL,
@@ -150,49 +172,6 @@ CREATE TABLE `movie` (
   `image` text NOT NULL,
   `htype` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `movie`
---
-
-INSERT INTO `movie` (`mid`, `movieName`, `movieCast`, `facts`, `description`, `rating`, `image`, `htype`) VALUES
-(1, 'Captain Marvel', 'Zee', '-', 'Watching this watch is worth Watching', 5, 'movie-poster-1_jpg_1614127550.jpg', 1),
-(2, 'YJHD', '-', '-', '-', 5, 'Yeh_jawani_hai_deewani_jpg_692881968.jpg', 2),
-(3, 'RRR', 'R', 'R', 'R', 5, 'RRR_Poster_jpg_1484559942.jpg', 3),
-(4, 'English-Vinglish', 'Gauri Shinde', 'demo', '-', 5, 'english-vinglish_jpg_2071886188.jpg', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `movietable`
---
-
-CREATE TABLE `movietable` (
-  `movieID` int(11) NOT NULL,
-  `movieImg` varchar(150) NOT NULL,
-  `movieTitle` varchar(100) NOT NULL,
-  `movieGenre` varchar(50) NOT NULL,
-  `movieDuration` int(11) NOT NULL,
-  `movieRelDate` date NOT NULL,
-  `movieDirector` varchar(50) NOT NULL,
-  `movieActors` varchar(150) NOT NULL,
-  `mainhall` int(11) NOT NULL,
-  `viphall` int(11) NOT NULL,
-  `privatehall` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `movietable`
---
-
-INSERT INTO `movietable` (`movieID`, `movieImg`, `movieTitle`, `movieGenre`, `movieDuration`, `movieRelDate`, `movieDirector`, `movieActors`, `mainhall`, `viphall`, `privatehall`) VALUES
-(1, 'img/movie-poster-1.jpg', 'Captain Marvel', ' Action, Adventure, Sci-Fi ', 220, '2018-10-18', 'Anna Boden, Ryan Fleck', 'Brie Larson, Samuel L. Jackson, Ben Mendelsohn', 0, 0, 0),
-(2, 'img/movie-poster-2.jpg', 'Qarmat Bitamrmat  ', 'Comedy', 110, '2018-10-18', 'Assad Fouladkar', 'Ahmed Adam, Bayyumy Fouad, Salah Abdullah , Entsar, Dina Fouad ', 0, 0, 0),
-(3, 'img/movie-poster-3.jpg', 'The Lego Movie', 'Animation, Action, Adventure', 110, '2014-02-07', 'Phil Lord, Christopher Miller', 'Chris Pratt, Will Ferrell, Elizabeth Banks', 0, 0, 0),
-(4, 'img/movie-poster-4.jpg', 'Nadi Elregal Elserri ', 'Comedy', 105, '2019-01-23', ' Ayman Uttar', 'Karim Abdul Aziz, Ghada Adel, Maged El Kedwany, Nesreen Tafesh, Bayyumy Fouad, Moataz El Tony ', 0, 0, 0),
-(5, 'img/movie-poster-5.jpg', 'VICE', 'Biography, Comedy, Drama', 132, '2018-12-25', 'Adam McKay', 'Christian Bale, Amy Adams, Steve Carell', 0, 0, 0),
-(6, 'img/movie-poster-6.jpg', 'The Vanishing', 'Crime, Mystery, Thriller', 107, '2019-01-04', 'Kristoffer Nyholm', 'Gerard Butler, Peter Mullan, Connor Swindells', 0, 0, 0),
-(69, 'img/colloborative software.png', 'demo', 'demo', 5, '2023-05-28', 'demo', 'demo', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -250,7 +229,26 @@ INSERT INTO `seats_booking` (`id`, `bookingID`, `seat_no`) VALUES
 (22, 29, 'A1,B1,C1,D1,E1,F1,G1,H1'),
 (23, 30, 'A2,A3,A4,A5'),
 (24, 31, 'A5,A6,A7'),
-(25, 32, 'A8,A9');
+(25, 32, 'A8,A9'),
+(26, 33, 'E5,E6,E7,E8'),
+(27, 34, 'E5,E6,E7,E8'),
+(28, 37, 'C18,E18,F18,G18,H18,I18'),
+(29, 38, 'C18,E18,F18,G18,H18,I18'),
+(30, 43, 'A4,A5,A6,A7,A8,A9,A12'),
+(31, 44, 'A4,A5,A6,A7,A8,A9,A12'),
+(32, 45, 'A4,A5,A6,A7,A8,A9,A12'),
+(33, 47, 'H3,H4'),
+(34, 48, 'A6,A7,H3,H4'),
+(35, 49, 'A1,A2,A3,A4,B1,B2,B3,B4,B5,B6'),
+(37, 51, 'B7,B7,E9,F13,F13'),
+(38, 53, 'F11,F12'),
+(39, 54, 'A1,A2,A3,A4,A5,A6,A7,A10,A11,A12,A13,A14,A15'),
+(40, 55, 'F18,F19,F20'),
+(41, 56, 'J1,J2,J3,J4,J5,J6,J13 ,J14 ,J15 ,J16 ,J17 ,J18 ,J19 ,J20 ,J21 '),
+(42, 57, 'J13 checked disabled,J14 checked disabled,J15 checked disabled,J16 checked disabled,J17 checked disabled,J18 checked disabled,J19 checked disabled,J20 checked disabled,J21 checked disabled'),
+(43, 58, 'J13 checked disabled,J14 checked disabled,J15 checked disabled,J16 checked disabled,J17 checked disabled,J18 checked disabled,J19 checked disabled,J20 checked disabled,J21 checked disabled'),
+(44, 59, 'H3,H4,H5,H6,H7'),
+(45, 1, 'C1,C2,C3,C4,C5,C6,C7,C8');
 
 -- --------------------------------------------------------
 
@@ -261,18 +259,22 @@ INSERT INTO `seats_booking` (`id`, `bookingID`, `seat_no`) VALUES
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(80) NOT NULL,
+  `lastname` varchar(100) NOT NULL,
   `name` varchar(80) NOT NULL,
   `password` varchar(80) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `phoneNum` varchar(100) NOT NULL
+  `phoneNum` varchar(100) NOT NULL,
+  `address` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `name`, `password`, `email`, `phoneNum`) VALUES
-(1, '123', 'john', '123', '123@gmail.com', '07579789654');
+INSERT INTO `users` (`id`, `username`, `lastname`, `name`, `password`, `email`, `phoneNum`, `address`) VALUES
+(1, '123', '', 'john', '123', '123@gmail.com', '07579789654', ''),
+(2, 'Shridhar', 'kaswala', '', '1234', 'shridharkaswla008@gmail.com', '07575757575', 'Sai Highets,Surat'),
+(3, '', 'Kaswala', 'Dipali', '12345', 'dipaldonga@gmail.com', '07575757575', '21, abcd, london');
 
 --
 -- Indexes for dumped tables
@@ -310,14 +312,14 @@ ALTER TABLE `feedbacktable`
 -- Indexes for table `movie`
 --
 ALTER TABLE `movie`
-  ADD PRIMARY KEY (`mid`);
+  ADD PRIMARY KEY (`mid`),
+  ADD UNIQUE KEY `movieID` (`mid`);
 
 --
--- Indexes for table `movietable`
+-- Indexes for table `movie_old`
 --
-ALTER TABLE `movietable`
-  ADD PRIMARY KEY (`movieID`),
-  ADD UNIQUE KEY `movieID` (`movieID`);
+ALTER TABLE `movie_old`
+  ADD PRIMARY KEY (`mid`);
 
 --
 -- Indexes for table `screen`
@@ -357,7 +359,7 @@ ALTER TABLE `booking`
 -- AUTO_INCREMENT for table `bookingtable`
 --
 ALTER TABLE `bookingtable`
-  MODIFY `bookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `bookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `feedbacktable`
@@ -369,13 +371,13 @@ ALTER TABLE `feedbacktable`
 -- AUTO_INCREMENT for table `movie`
 --
 ALTER TABLE `movie`
-  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
--- AUTO_INCREMENT for table `movietable`
+-- AUTO_INCREMENT for table `movie_old`
 --
-ALTER TABLE `movietable`
-  MODIFY `movieID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+ALTER TABLE `movie_old`
+  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `screen`
@@ -387,13 +389,13 @@ ALTER TABLE `screen`
 -- AUTO_INCREMENT for table `seats_booking`
 --
 ALTER TABLE `seats_booking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -403,7 +405,7 @@ ALTER TABLE `users`
 -- Constraints for table `bookingtable`
 --
 ALTER TABLE `bookingtable`
-  ADD CONSTRAINT `foreign_key_movieID` FOREIGN KEY (`movieID`) REFERENCES `movietable` (`movieID`);
+  ADD CONSTRAINT `foreign_key_movieID` FOREIGN KEY (`movieID`) REFERENCES `movie` (`mid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
