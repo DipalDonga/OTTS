@@ -5,7 +5,7 @@ if (isset($_POST['but_logout'])) {
     session_destroy();
     header('Location: index.php');
 }
-
+ 
 ?>
 <div class="admin-section-header">
     <div class="admin-logo">
