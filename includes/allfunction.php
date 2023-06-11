@@ -3,11 +3,14 @@ session_start();
 include("../connection.php");
 
 date_default_timezone_set('Asia/Kolkata');
-  
+
 switch($_REQUEST['action'])
 {
 	case "signin":
 		login();
+		break;
+	case "signup":
+		signup();
 		break;
 	case "signout":
 		logout();
@@ -47,6 +50,57 @@ function login(){
 		echo "0";
 	}
 }
+
+function signup(){
+	global $con;
+
+	
+	if(isset($_REQUEST['firstname'])){
+		$firstname=$_REQUEST['firstname'];
+	}else{
+		$firstname='';
+	}
+	if(isset($_REQUEST['lastname'])){
+		$lastname=$_REQUEST['lastname'];
+	}else{
+		$lastname='';
+	}
+	if(isset($_REQUEST['email'])){
+		$email=$_REQUEST['email'];
+	}else{
+		$email='';
+	}
+	if(isset($_REQUEST['password'])){
+		$password=$_REQUEST['password'];
+	}else{
+		$password='';
+	}
+	if(isset($_REQUEST['address'])){
+		$address=$_REQUEST['address'];
+	}else{
+		$address='';
+	}
+	if(isset($_REQUEST['phonenum'])){
+		$phonenum=$_REQUEST['phonenum'];
+	}else{
+		$phonenum='';
+	}
+
+	
+		
+		$query1 = mysqli_query($con,"INSERT into users (name,lastname,email,password,address,phonenum) VALUES('".$firstname."','".$lastname."','".$email."','".$password."','".$address."','".$phonenum."')");
+	
+		
+	
+	if($query1){
+		echo "1";
+	}else{
+		echo "0";
+	}
+
+}
+
+
 function logout(){
 	global $web;
 
