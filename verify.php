@@ -3,7 +3,7 @@ include "connection.php";
 session_start();
 
 if(!isset($_POST['sheets'])){
-    echo "<script>alert('Please select sheet');window.location.href='index.php';</script>";
+    echo "<script>alert('Please select sheet');window.location.href='login.php';</script>";
 }
 // variables
 $fname = $_POST['fName'];
@@ -16,7 +16,7 @@ $date = $_POST['date'];
 $time = $_POST['hour'];
 $sheets = $_POST['sheets'];
 $movieid = $_POST['movie_id'];
-$order = "ARVR" . rand(10000, 99999999);
+$order = "ATSE" . rand(10000, 99999999);
 $cust  = "CUST" . rand(1000, 999999);
 
 //sessions
@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
                         <td>3</td>
                         <td><label>Website ::*</label></td>
                         <td>
-                            <?php echo "ARVRcinemas"; ?>
+                            <?php echo "ATSEcinemas"; ?>
                         </td>
                     </tr>
                     <tr>
@@ -117,13 +117,13 @@ if (isset($_POST['submit'])) {
                             <?php
                             $ta = 0;
                             if ($theatre == "1") {
-                                $ta = 200;
+                                $ta = "£200";
                             }
                             if ($theatre == "2") {
-                                $ta = 500;
+                                $ta = "£500";
                             }
                             if ($theatre == "3") {
-                                $ta = 900;
+                                $ta = "£900";
                             }
 
                             ?>
@@ -147,7 +147,7 @@ if (isset($_POST['submit'])) {
                         <td></td>
                         <td></td>
                         <td>
-                            <button value="Book Now!" type="submit" onclick="" type="button" class="btn btn-danger">Pay Now!</button>
+                            <button value="Book Now!" type="submit" onclick="" type="button" class="btn btn-danger"><a href="payment_done.php">Pay Now!</a></button>
                             <!-- <input value="CheckOut" type="submit"	onclick=""></td> -->
                     </tr>
                 </tbody>
