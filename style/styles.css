@@ -441,8 +441,8 @@ footer {
   -moz-box-shadow: 1px 0px 23px 3px rgba(0, 0, 0, 0.45);
   transition: all 0.7s ease;
   width: 90%;
-  height: 100vh;
-  margin: 0 auto;
+  height: 100%;
+  margin: 30px auto;
 }
 
 .booking-panel-section1 {
@@ -509,7 +509,7 @@ footer {
 }
 
 .booking-form-container {
-  background-color: #6e5a11;
+  background-color: #b1c9b6;
   width: 100%;
   padding: 25px;
   margin: 20px 0;
@@ -530,7 +530,7 @@ footer {
   float: right;
   width: 25%;
   text-align: center;
-  background-color: #a3861e;
+  background-color: #6d8f91;
   color: #fff;
   transition: all 0.7s ease;
   cursor: pointer;
@@ -563,7 +563,7 @@ footer {
   margin: 5px 0;
 }
 
-.booking-form-container form input {
+.booking-form-container form .input {
   border-radius: 4px;
   border: 1px solid #6e6e6e;
   padding: 10px;
