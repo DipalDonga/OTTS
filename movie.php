@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
- 
+
 include("connection.php");
 $htype = $_GET['htype'];
 ?>
@@ -18,7 +18,7 @@ $htype = $_GET['htype'];
 
 <body>
     <header></header>
-     
+    
     <div id="home-section-1" class="movie-show-container">
         <h3>Book a movie now</h3>
 
