@@ -85,7 +85,7 @@ if (isset($_POST['but_logout'])) {
                                 $ORDERID = $row['ORDERID'];
                                 $amount = $row['amount'];
 
-                                
+                                 
 
                             ?>
                                 <tr align="center">
