@@ -1,10 +1,14 @@
   
-<a href="index.php">
-    <h1 class="navbar-heading">ATSE Cinema</h1>
-</a>
+
 <div class="navbar-">
-    <nav class="navbar">
+    <nav class="navbar" style="
+    background-color: black;">
+        <a href="index.php">
+    <h1 class="navbar-heading" style="
+    color: white;">ATSE Cinema</h1>
+</a>&nbsp;&nbsp;&nbsp;&nbsp;
         <ul class="navbar-menu">
+
             <li><a href="index.php">Home</a></li>
             <!-- <li><a href="TxnStatus.php" target="_blank">Status</a></li> -->
             <li><a href="contact-us.php">Contact</a></li>
