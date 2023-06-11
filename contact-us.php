@@ -2,7 +2,7 @@
 <?php 
 
 include("connection.php");
- 
+
 if(isset($_SESSION['moviemin_id']))
 {
     header('location:index.php');
@@ -60,12 +60,12 @@ if(isset($_SESSION['moviemin_id']))
         <div class="contact-us-section contact-us-section2">
             <h1>Address & Info</h1>
             <h3>Phone Numbers</h3>
-            <p><a href="tel:01011391148">+2 010 11 39 11 48</a><br>
-                <a href="tel:01011391148">+2 010 11 39 11 48</a></p>
+            <p><a href="tel:01011391148">+44 11 11 11 11 11</a><br>
+                <a href="tel:01011391148">+44 22 22 22 22 22</a></p>
             <h3>Address</h3>
-            <p>El Sherouk City , Suez Desert Road , Cairo 11837 - P.O. Box 43</p>
+            <p>West London</p>
             <h3>E-mail</h3>
-            <p><a href="mailto:cinemareservation@bue.edu.eg">cinemareservation@bue.edu.eg</a></p>
+            <p><a href="mailto:cinemareservation@bue.edu.eg">WL@edu.eg</a></p>
         </div>
     </div>
     <div style="width: 75%; height: 350px; margin: 15%;">
